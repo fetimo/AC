@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "io.github.darkkronicle.advancedchathud.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "MixinChatHud",
+    "MixinMinecraftClient"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
