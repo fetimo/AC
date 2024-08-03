@@ -7,7 +7,7 @@
  */
 package io.github.darkkronicle.advancedchatcore.util;
 
-/** A class to handle an easing method. Examples at https://easings.net/ */
+/** A class to handle an easing method. Examples at <a href="https://easings.net/">Easings</a> */
 public interface EasingMethod {
     /**
      * Applies the current percentage of the ease.
@@ -25,28 +25,28 @@ public interface EasingMethod {
         /**
          * Implements the sine easing function.
          *
-         * <p>https://easings.net/#easeInSine
+         * <p><a href="https://easings.net/#easeInSine">EaseInSine</a>
          */
         SINE(x -> 1 - Math.cos((x * Math.PI) / 2)),
 
         /**
          * Implements the quad easing function.
          *
-         * <p>https://easings.net/#easeInQuad
+         * <p><a href="https://easings.net/#easeInQuad">EaseInQuad</a>
          */
         QUAD(x -> x * x),
 
         /**
          * Implements the quart easing function.
          *
-         * <p>https://easings.net/#easeInQuart
+         * <p><a href="https://easings.net/#easeInQuart">EaseInQuart</a>
          */
         QUART(x -> x * x * x * x),
 
         /**
          * Implements the circ easing function.
          *
-         * <p>https://easings.net/#easeInCirc
+         * <p><a href="https://easings.net/#easeInCirc">EaseInCirc</a>
          */
         CIRC(x -> 1 - Math.sqrt(1 - Math.pow(x, 2)));
 

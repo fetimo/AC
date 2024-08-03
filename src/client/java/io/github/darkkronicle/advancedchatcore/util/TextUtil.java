@@ -22,14 +22,14 @@ public class TextUtil {
 
     private final char[] SUPERSCRIPTS =
             new char[] {
-                    '\u2070', '\u00B9', '\u00B2', '\u00B3', '\u2074', '\u2075', '\u2076', '\u2077',
-                    '\u2078', '\u2079'
+                    '⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷',
+                    '⁸', '⁹'
             };
 
     /**
      * Calculates the similarity (a number within 0 and 1) between two strings.
      *
-     * <p>https://stackoverflow.com/questions/955110/similarity-string-comparison-in-java
+     * <p><a href="https://stackoverflow.com/questions/955110/similarity-string-comparison-in-java">SO answer</a>
      */
     public double similarity(String s1, String s2) {
         String longer = s1, shorter = s2;
@@ -49,7 +49,7 @@ public class TextUtil {
 
     // Example implementation of the Levenshtein Edit Distance
     // See http://rosettacode.org/wiki/Levenshtein_distance#Java
-    /** https://stackoverflow.com/questions/955110/similarity-string-comparison-in-java */
+    /** <a href="https://stackoverflow.com/questions/955110/similarity-string-comparison-in-java">SO answer</a> */
     public int editDistance(String s1, String s2) {
         s1 = s1.toLowerCase();
         s2 = s2.toLowerCase();
@@ -242,7 +242,7 @@ public class TextUtil {
         // Total number of chars went through. Used to find where the match end and beginning is.
         int totalchar = 0;
         List<Text> siblings = input.getSiblings();
-        siblings.add(0, MutableText.of(input.getContent()).fillStyle(input.getStyle()));
+        siblings.addFirst(MutableText.of(input.getContent()).fillStyle(input.getStyle()));
         for (Text text : siblings) {
             if (text.getContent() == null || text.getString().length() <= 0) {
                 continue;
@@ -322,7 +322,7 @@ public class TextUtil {
     public static boolean styleChanges(Text text, BiFunction<Style, Style, Boolean> predicate) {
         Style previous = null;
         if (text.getSiblings().size() == 1) {
-            return !predicate.apply(text.getSiblings().get(0).getStyle(), text.getSiblings().get(0).getStyle());
+            return !predicate.apply(text.getSiblings().getFirst().getStyle(), text.getSiblings().getFirst().getStyle());
         }
         for (Text raw : text.getSiblings()) {
             if (previous == null) {

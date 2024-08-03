@@ -137,7 +137,7 @@ public class AdvancedChatScreen extends GuiBase {
             this.chatField.setMaxLength(256);
         }
         this.chatField.setDrawsBackground(false);
-        if (!this.originalChatText.equals("")) {
+        if (!this.originalChatText.isEmpty()) {
             this.chatField.setText(this.originalChatText);
         } else if (ConfigStorage.ChatScreen.PERSISTENT_TEXT.config.getBooleanValue()
                 && !last.isEmpty()) {

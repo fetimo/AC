@@ -311,21 +311,6 @@ public class ConfigStorage implements IConfigHandler {
         }
     }
 
-    /**
-     * Creates a {@link JsonObject} containing registry data
-     *
-     * @param registry
-     * @return
-     */
-    public static JsonObject saveRegistry(
-            AbstractRegistry<?, ? extends ConfigRegistryOption<?>> registry) {
-        JsonObject object = new JsonObject();
-        for (ConfigRegistryOption<?> option : registry.getAll()) {
-            object.add(option.getSaveString(), option.save());
-        }
-        return object;
-    }
-
     public static void saveFromFile() {
         File dir = FileUtils.getConfigDirectory().toPath().resolve("advancedchat").toFile();
 

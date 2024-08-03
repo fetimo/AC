@@ -18,22 +18,23 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 /** A utility class to maintain the storage of the chat. */
+@Getter
 @Environment(EnvType.CLIENT)
 public class ChatHistory {
 
     private static final ChatHistory INSTANCE = new ChatHistory();
 
     /** Stored lines */
-    @Getter private final List<ChatMessage> messages = new ArrayList<>();
+    private final List<ChatMessage> messages = new ArrayList<>();
 
     /** Maximum lines for storage */
-    @Getter @Setter private int maxLines = 500;
+    @Setter private int maxLines = 500;
 
     /** Runnables to run when chat history is cleared */
-    @Getter private final List<Runnable> onClear = new ArrayList<>();
+    private final List<Runnable> onClear = new ArrayList<>();
 
     /** {@link IChatMessageProcessor} for when history is updated. */
-    @Getter private final List<IChatMessageProcessor> onUpdate = new ArrayList<>();
+    private final List<IChatMessageProcessor> onUpdate = new ArrayList<>();
 
     public static ChatHistory getInstance() {
         return INSTANCE;
@@ -82,7 +83,7 @@ public class ChatHistory {
     /**
      * Adds a chat message to the history.
      *
-     * @param message
+     * @param message ChatMessage to add
      */
     public boolean add(ChatMessage message) {
         sendUpdate(message, IChatMessageProcessor.UpdateType.NEW);
@@ -99,10 +100,10 @@ public class ChatHistory {
             }
         }
         sendUpdate(message, IChatMessageProcessor.UpdateType.ADDED);
-        messages.add(0, message);
+        messages.addFirst(message);
         while (this.messages.size() > maxLines) {
             sendUpdate(
-                    this.messages.remove(this.messages.size() - 1),
+                    this.messages.removeLast(),
                     IChatMessageProcessor.UpdateType.REMOVE);
         }
         return true;
@@ -117,7 +118,7 @@ public class ChatHistory {
         List<ChatMessage> toRemove =
                 this.messages.stream()
                         .filter(line -> line.getId() == messageId)
-                        .collect(Collectors.toList());
+                        .toList();
         this.messages.removeAll(toRemove);
         for (ChatMessage m : toRemove) {
             sendUpdate(m, IChatMessageProcessor.UpdateType.REMOVE);

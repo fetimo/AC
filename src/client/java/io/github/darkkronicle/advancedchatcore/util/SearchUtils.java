@@ -292,7 +292,7 @@ public class SearchUtils {
      *
      * <p>Example: 4 -> IV
      *
-     * <p>https://stackoverflow.com/questions/12967896/converting-integers-to-roman-numerals-java/12968022
+     * <p><a href="https://stackoverflow.com/questions/12967896/converting-integers-to-roman-numerals-java/12968022">SO answers</a>
      *
      * @param number Example to convert to
      * @return String or Roman Numeral

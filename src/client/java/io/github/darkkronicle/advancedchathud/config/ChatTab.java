@@ -128,7 +128,7 @@ public class ChatTab {
                     showUnread);
 
     public FindType getFind() {
-        return matches.get(0).getFindType();
+        return matches.getFirst().getFindType();
     }
 
     public List<String> getWidgetHoverLines() {
@@ -148,7 +148,7 @@ public class ChatTab {
                                     Matcher.quoteReplacement(forward.config.getStringValue()))
                             .replaceAll(
                                     Pattern.quote("<find>"),
-                                    Matcher.quoteReplacement(matches.get(0).getPattern()))
+                                    Matcher.quoteReplacement(matches.getFirst().getPattern()))
                             .replaceAll(
                                     Pattern.quote("<findtype>"),
                                     Matcher.quoteReplacement(getFind().getDisplayName()))

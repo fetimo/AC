@@ -182,7 +182,7 @@ public class WindowManager implements IRenderer, ResolutionEventHandler {
             w.setSelected(window.equals(w));
         }
         windows.removeIf(w -> w == window);
-        windows.add(0, window);
+        windows.addFirst(window);
 
         if (!HudConfigStorage.General.CHANGE_START_MESSAGE.config.getBooleanValue() || !(client.currentScreen instanceof AdvancedChatScreen screen)) {
             return;
@@ -201,7 +201,7 @@ public class WindowManager implements IRenderer, ResolutionEventHandler {
 
             for (ChatWindow w : windows) {
                 if (w.getTab() instanceof CustomChatTab tab2) {
-                    if (screen.getChatField().getText().startsWith(tab2.getStartingMessage()) && tab2.getStartingMessage().length() > 0) {
+                    if (screen.getChatField().getText().startsWith(tab2.getStartingMessage()) && !tab2.getStartingMessage().isEmpty()) {
                         screen.getChatField().setText(tab.getStartingMessage() + screen.getChatField().getText().substring(tab2.getStartingMessage().length()));
 
                         replaced = true;
@@ -314,7 +314,7 @@ public class WindowManager implements IRenderer, ResolutionEventHandler {
             for (ChatWindow w : windows) {
                 w.setSelected(false);
             }
-            windows.get(0).setSelected(true);
+            windows.getFirst().setSelected(true);
         }
     }
 

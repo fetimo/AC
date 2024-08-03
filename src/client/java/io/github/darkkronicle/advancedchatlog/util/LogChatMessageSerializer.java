@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -58,7 +60,7 @@ public class LogChatMessageSerializer implements IJsonSave<LogChatMessage> {
         LocalTime time = dateTime.toLocalTime();
 
         MinecraftClient client = MinecraftClient.getInstance();
-        DynamicRegistryManager.Immutable registries = client.getNetworkHandler().getRegistryManager();
+        DynamicRegistryManager.Immutable registries = Objects.requireNonNull(client.getNetworkHandler()).getRegistryManager();
 
         Text display = Text.Serialization.fromJson(obj.get("display").getAsString(), registries);
         Text original = Text.Serialization.fromJson(obj.get("original").getAsString(), registries);

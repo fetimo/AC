@@ -110,7 +110,7 @@ public class SearchResult {
                     // Didn't work
                 }
             }
-            return SearchUtils.replaceGroups(Collections.singletonList(matches.get(0)), string);
+            return SearchUtils.replaceGroups(Collections.singletonList(matches.getFirst()), string);
         }
         if (finder instanceof RegexFinder regex) {
             try {

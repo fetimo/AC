@@ -17,15 +17,17 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.font.TextRenderer;
 
+@Getter
 public class WidgetIntBox extends GuiTextFieldGeneric {
 
-    @Setter @Getter private Runnable apply = null;
+    @Setter
+    private Runnable apply = null;
 
     public WidgetIntBox(int x, int y, int width, int height, TextRenderer textRenderer) {
         super(x, y, width, height, textRenderer);
         this.setTextPredicate(
                 text -> {
-                    if (text.equals("")) {
+                    if (text.isEmpty()) {
                         return true;
                     }
                     try {

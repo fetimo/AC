@@ -26,7 +26,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.Level;
 
 /**
- * https://gist.github.com/PimDeWitte/c04cc17bc5fa9d7e3aee6670d4105941
+ * <a href="https://gist.github.com/PimDeWitte/c04cc17bc5fa9d7e3aee6670d4105941">ProfanityUtil Gist</a>
  *
  * @author PimDeWitte
  */
@@ -118,7 +118,7 @@ public class ProfanityUtil {
 
         // iterate over each letter in the word
         int boundaryIndex = 0;
-        int index = onlyWordBoundaries ? wordBoundaries.get(0) : 0;
+        int index = onlyWordBoundaries ? wordBoundaries.getFirst() : 0;
         while (index < input.length()) {
             // from each letter, keep going to find bad words until either the end of the sentence
             // is reached, or the max word length is reached.

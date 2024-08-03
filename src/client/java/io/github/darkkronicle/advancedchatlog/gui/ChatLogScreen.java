@@ -68,6 +68,7 @@ public class ChatLogScreen extends GuiBase {
     public void add(LogChatMessage message) {
         add(message.getMessage());
         if (currentScroll > 0) {
+            assert client != null;
             currentScroll += message.getMessage().getLineCount() * (client.textRenderer.fontHeight + 2);
         }
     }
@@ -77,7 +78,7 @@ public class ChatLogScreen extends GuiBase {
             if (SearchUtils.isMatch(
                     message.getDisplayText().getString(), search.getText(), findType)) {
                 for (int i = 0; i < message.getLineCount(); i++) {
-                    renderLines.add(0, message.getLines().get(i));
+                    renderLines.addFirst(message.getLines().get(i));
                 }
             }
         } catch (PatternSyntaxException e) {
@@ -165,6 +166,7 @@ public class ChatLogScreen extends GuiBase {
 
     public void relativeScroll(int y) {
         // Scroll click
+        assert client != null;
         int height = client.getWindow().getScaledHeight() - 100;
         y -= 40;
         float percent = 1 - Math.max(0, Math.min((float) y / height, 1));

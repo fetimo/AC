@@ -22,7 +22,7 @@ public class OnOffListListener<T extends Translatable> implements IButtonActionL
     private final ButtonGeneric button;
     private final WidgetToggle toggle;
     private T current;
-    private HashMap<T, Boolean> onOff;
+    private final HashMap<T, Boolean> onOff;
     private final List<T> order;
 
     public OnOffListListener(ButtonGeneric button, WidgetToggle toggle, HashMap<T, Boolean> onOff) {

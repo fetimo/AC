@@ -110,17 +110,17 @@ public abstract class AbstractRegistry<TYPE, OPTION extends RegistryOption<TYPE>
         }
         int i = options.indexOf(option);
         if (i < 0) {
-            return options.get(0);
+            return options.getFirst();
         }
         if (forward) {
             i = i + 1;
             if (i >= options.size()) {
-                return options.get(0);
+                return options.getFirst();
             }
         } else {
             i = i - 1;
             if (i < 0) {
-                return options.get(options.size() - 1);
+                return options.getLast();
             }
         }
         return options.get(i);

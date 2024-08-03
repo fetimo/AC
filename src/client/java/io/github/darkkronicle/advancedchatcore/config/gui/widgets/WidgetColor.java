@@ -15,11 +15,10 @@ import io.github.darkkronicle.advancedchatcore.util.Colors;
 import java.util.Optional;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class WidgetColor extends GuiTextFieldGeneric {
 
-    private int colorX;
+    private final int colorX;
     private Color currentColor;
 
     public WidgetColor(
@@ -50,13 +49,12 @@ public class WidgetColor extends GuiTextFieldGeneric {
         return super.getWidth() + 22;
     }
 
-    public Color getAndRefreshColor4f() {
+    public void getAndRefreshColor4f() {
         Optional<Color> color = Colors.getInstance().getColor(getText());
         if (color.isPresent()) {
             this.currentColor = color.get();
-            return this.currentColor;
+            return;
         }
         this.currentColor = new Color(StringUtils.getColor(getText(), 0));
-        return this.currentColor;
     }
 }

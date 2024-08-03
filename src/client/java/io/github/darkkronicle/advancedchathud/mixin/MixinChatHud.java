@@ -136,7 +136,7 @@ public abstract class MixinChatHud implements IChatHud {
         OrderedText orderedText;
         for (Iterator<OrderedText> text = list.iterator();
                 text.hasNext();
-                this.visibleMessages.add(0, new ChatHudLine.Visible(msg.getCreationTick(), orderedText, msg.getIndicator(), !text.hasNext()))) {
+                this.visibleMessages.addFirst(new ChatHudLine.Visible(msg.getCreationTick(), orderedText, msg.getIndicator(), !text.hasNext()))) {
             orderedText = text.next();
             if (this.isChatFocused() && this.scrolledLines > 0) {
                 this.hasUnreadNewMessages = true;
@@ -146,13 +146,13 @@ public abstract class MixinChatHud implements IChatHud {
 
         while (this.visibleMessages.size()
                 > HudConfigStorage.General.STORED_LINES.config.getIntegerValue()) {
-            this.visibleMessages.remove(this.visibleMessages.size() - 1);
+            this.visibleMessages.removeLast();
         }
 
-        this.messages.add(0, new ChatHudLine(msg.getCreationTick(), msg.getDisplayText(), msg.getSignature(), msg.getIndicator()));
+        this.messages.addFirst(new ChatHudLine(msg.getCreationTick(), msg.getDisplayText(), msg.getSignature(), msg.getIndicator()));
         while (this.messages.size()
                 > HudConfigStorage.General.STORED_LINES.config.getIntegerValue()) {
-            this.messages.remove(this.messages.size() - 1);
+            this.messages.removeLast();
         }
     }
 

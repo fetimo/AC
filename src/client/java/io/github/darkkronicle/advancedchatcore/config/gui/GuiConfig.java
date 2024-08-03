@@ -48,7 +48,7 @@ public class GuiConfig extends GuiConfigsBase {
             }
             if (TAB == null) {
                 // sucks to suck lol
-                TAB = GuiConfigHandler.getInstance().getTabs().get(0);
+                TAB = GuiConfigHandler.getInstance().getTabs().getFirst();
             }
         }
         boolean children = TAB.getChildren() != null && !TAB.getChildren().isEmpty();

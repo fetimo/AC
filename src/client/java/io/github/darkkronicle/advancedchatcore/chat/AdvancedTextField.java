@@ -21,7 +21,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -47,9 +46,8 @@ public class AdvancedTextField extends TextFieldWidget {
 
     private int focusedTicks = 0;
     private List<Text> renderLines = new ArrayList<>();
-    private TextRenderer textRenderer;
+    private final TextRenderer textRenderer;
     private String suggestion = null;
-    private int maxLength = 32;
     private int selectionEnd;
     private int selectionStart;
     // TODO Split?
@@ -87,7 +85,6 @@ public class AdvancedTextField extends TextFieldWidget {
 
     @Override
     public void setMaxLength(int maxLength) {
-        this.maxLength = maxLength;
         super.setMaxLength(maxLength);
     }
 
@@ -328,7 +325,7 @@ public class AdvancedTextField extends TextFieldWidget {
         this.lastSaved = text;
         this.history.add(text);
         while (this.history.size() > MAX_HISTORY) {
-            this.history.remove(0);
+            this.history.removeFirst();
         }
     }
 
@@ -343,7 +340,7 @@ public class AdvancedTextField extends TextFieldWidget {
             return;
         }
         while (history.size() > index) {
-            history.remove(history.size() - 1);
+            history.removeLast();
         }
     }
 

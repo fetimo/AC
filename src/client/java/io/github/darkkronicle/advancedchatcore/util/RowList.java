@@ -47,7 +47,7 @@ public class RowList<T> {
     public List<T> get(int y) {
         String key;
         if (y >= order.size()) {
-            key = order.get(order.size() - 1);
+            key = order.getLast();
         } else {
             key = order.get(y);
         }

@@ -139,14 +139,14 @@ public class ChatWindow {
             if (setTicks) {
                 newMessage.setCreationTick(MinecraftClient.getInstance().inGameHud.getTicks());
             }
-            this.lines.add(0, newMessage);
+            this.lines.addFirst(newMessage);
             if (scrolledHeight > 0) {
                 scrolledHeight += (HudConfigStorage.General.LINE_SPACE.config.getIntegerValue()) * newMessage.getLineCount() + HudConfigStorage.General.MESSAGE_SPACE.config.getIntegerValue();
             }
             int visibleMessagesMaxSize =
                     HudConfigStorage.General.STORED_LINES.config.getIntegerValue();
             while (this.lines.size() > visibleMessagesMaxSize) {
-                this.lines.remove(this.lines.size() - 1);
+                this.lines.removeLast();
             }
         }
     }
