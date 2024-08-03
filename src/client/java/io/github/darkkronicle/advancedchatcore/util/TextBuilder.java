@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class TextBuilder {
 
-    private List<RawText> siblings = new ArrayList<>();
+    private final List<RawText> siblings = new ArrayList<>();
 
     public TextBuilder append(String string) {
         siblings.add(RawText.of(string));

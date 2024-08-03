@@ -40,7 +40,7 @@ public abstract class ConfigGuiListBase<
         int y = 26;
 
         y += (22 * GuiConfig.addTabButtons(this, 10, y));
-        if (GuiConfig.TAB.getChildren() != null && GuiConfig.TAB.getChildren().size() > 0) {
+        if (GuiConfig.TAB.getChildren() != null && !GuiConfig.TAB.getChildren().isEmpty()) {
             y += (22 * GuiConfig.addAllChildrenButtons(this, GuiConfig.TAB, 10, y));
         }
         this.setListPosition(this.getListX(), y);

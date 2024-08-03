@@ -29,7 +29,7 @@ public class ChatHistory {
     /** Maximum lines for storage */
     @Getter @Setter private int maxLines = 500;
 
-    /** Runnable's to run when chat history is cleared */
+    /** Runnables to run when chat history is cleared */
     @Getter private final List<Runnable> onClear = new ArrayList<>();
 
     /** {@link IChatMessageProcessor} for when history is updated. */
@@ -42,7 +42,7 @@ public class ChatHistory {
     private ChatHistory() {}
 
     /**
-     * Add's a runnable that will trigger when all chat messages should be cleared.
+     * Adds a runnable that will trigger when all chat messages should be cleared.
      *
      * @param runnable Runnable to run
      */
@@ -51,7 +51,7 @@ public class ChatHistory {
     }
 
     /**
-     * Add's a {@link IChatMessageProcessor} that get's called on new messages, added messages,
+     * Adds a {@link IChatMessageProcessor} that gets called on new messages, added messages,
      * stacked messages, or removed messages.
      *
      * @param processor Processor ot add
@@ -68,7 +68,7 @@ public class ChatHistory {
         }
     }
 
-    /** Clear's all the chat messages from the history */
+    /** Clears all the chat messages from the history */
     public void clear() {
         messages.clear();
     }
@@ -80,7 +80,7 @@ public class ChatHistory {
     }
 
     /**
-     * Add's a chat message to the history.
+     * Adds a chat message to the history.
      *
      * @param message
      */
@@ -109,7 +109,7 @@ public class ChatHistory {
     }
 
     /**
-     * Remove's a message based off of it's messageId.
+     * Removes a message based off of it's messageId.
      *
      * @param messageId Message ID to find and remove
      */

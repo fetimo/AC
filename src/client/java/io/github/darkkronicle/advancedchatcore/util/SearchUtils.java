@@ -118,7 +118,7 @@ public class SearchUtils {
             return Optional.empty();
         }
         Set<StringMatch> matches = new TreeSet<>(finder.getMatches(input, toMatch));
-        if (matches.size() != 0) {
+        if (!matches.isEmpty()) {
             return Optional.of(new ArrayList<>(matches));
         }
         return Optional.empty();
@@ -139,7 +139,7 @@ public class SearchUtils {
             return Optional.empty();
         }
         Set<StringMatch> matches = new TreeSet<>(finder.getMatches(input, toMatch));
-        if (matches.size() != 0) {
+        if (!matches.isEmpty()) {
             return Optional.of(new ArrayList<>(matches));
         }
         return Optional.empty();
@@ -161,7 +161,7 @@ public class SearchUtils {
         // Use treeset to sort the matches
         Set<StringMatch> matches = new TreeSet<>(finder.getMatches(input, toMatch));
         // Add and sort matches
-        if (matches.size() != 0) {
+        if (!matches.isEmpty()) {
             return Optional.of(matches.toArray(new StringMatch[0])[0]);
         }
         return Optional.empty();
@@ -183,7 +183,7 @@ public class SearchUtils {
         // Use treeset to sort the matches
         Set<StringMatch> matches = new TreeSet<>(finder.getMatches(input, toMatch));
         // Add and sort matches
-        if (matches.size() != 0) {
+        if (!matches.isEmpty()) {
             return Optional.of(matches.toArray(new StringMatch[0])[0]);
         }
         return Optional.empty();
@@ -205,7 +205,7 @@ public class SearchUtils {
                         stripColorCodes(text),
                         ConfigStorage.General.MESSAGE_OWNER_REGEX.config.getStringValue(),
                         FindType.REGEX);
-        if (!words.isPresent()) {
+        if (words.isEmpty()) {
             return null;
         }
         // Start by just checking names and such
@@ -239,7 +239,7 @@ public class SearchUtils {
                             name,
                             ConfigStorage.General.MESSAGE_OWNER_REGEX.config.getStringValue(),
                             FindType.REGEX);
-            if (!nameWords.isPresent()) {
+            if (nameWords.isEmpty()) {
                 continue;
             }
             entryMatches.put(e, nameWords.get());

@@ -8,17 +8,12 @@
 package io.github.darkkronicle.advancedchatlog.gui;
 
 import fi.dy.masa.malilib.gui.GuiBase;
-import fi.dy.masa.malilib.util.StringUtils;
 import io.github.darkkronicle.advancedchatcore.chat.AdvancedChatScreen;
-import io.github.darkkronicle.advancedchatcore.config.ConfigStorage;
-import io.github.darkkronicle.advancedchatcore.gui.CleanButton;
 import io.github.darkkronicle.advancedchatcore.gui.IconButton;
 import io.github.darkkronicle.advancedchatcore.interfaces.AdvancedChatScreenSection;
-import io.github.darkkronicle.advancedchatcore.util.Color;
 import io.github.darkkronicle.advancedchatlog.AdvancedChatLog;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 

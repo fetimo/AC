@@ -69,14 +69,14 @@ public class SyncTaskQueue {
      */
     public void update(int tick) {
         lastTick = tick;
-        if (queue.size() == 0) {
+        if (queue.isEmpty()) {
             return;
         }
         QueuedTask task = queue.first();
         while (task != null && task.tick <= lastTick) {
             task.task.run();
             queue.pollFirst();
-            if (queue.size() == 0) {
+            if (queue.isEmpty()) {
                 break;
             }
             task = queue.first();

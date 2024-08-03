@@ -17,18 +17,20 @@ import lombok.Setter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+@Getter
 @Environment(EnvType.CLIENT)
 public class HudChatMessage {
 
-    @Setter @Getter private List<AbstractChatTab> tabs;
+    @Setter
+    private List<AbstractChatTab> tabs;
 
-    @Getter private final ChatMessage message;
+    private final ChatMessage message;
 
     public HudChatMessage(ChatMessage message) {
         this(message, new ArrayList<>());
 
         boolean forward = true;
-        if (AdvancedChatHud.MAIN_CHAT_TAB.getCustomChatTabs().size() > 0) {
+        if (!AdvancedChatHud.MAIN_CHAT_TAB.getCustomChatTabs().isEmpty()) {
             for (CustomChatTab tab : AdvancedChatHud.MAIN_CHAT_TAB.getCustomChatTabs()) {
                 if (!tab.shouldAdd(message.getOriginalText())) {
                     continue;

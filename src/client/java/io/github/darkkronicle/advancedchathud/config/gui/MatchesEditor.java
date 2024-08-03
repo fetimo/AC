@@ -46,7 +46,7 @@ public class MatchesEditor extends CoreGuiListBase<Match, WidgetMatchEntry, Widg
 
     protected void addButton(int x, int y, String translation, IButtonActionListener listener) {
         ButtonGeneric button = new NamedSimpleButton(x, y, StringUtils.translate(translation), false);
-        // Right aline
+        // Right align
         this.addButton(button, listener);
     }
 

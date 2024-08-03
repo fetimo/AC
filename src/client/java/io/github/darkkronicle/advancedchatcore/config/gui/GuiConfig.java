@@ -51,7 +51,7 @@ public class GuiConfig extends GuiConfigsBase {
                 TAB = GuiConfigHandler.getInstance().getTabs().get(0);
             }
         }
-        boolean children = TAB.getChildren() != null && TAB.getChildren().size() != 0;
+        boolean children = TAB.getChildren() != null && !TAB.getChildren().isEmpty();
 
         Screen child = getFullyNestedSupplier(TAB).getScreen(this);
         if (child != null) {
@@ -81,7 +81,7 @@ public class GuiConfig extends GuiConfigsBase {
     }
 
     public static TabSupplier getFullyNestedSupplier(TabSupplier supplier) {
-        if (supplier.getChildren() == null || supplier.getChildren().size() == 0) {
+        if (supplier.getChildren() == null || supplier.getChildren().isEmpty()) {
             return supplier;
         }
         return getFullyNestedSupplier(supplier.getNestedSelection());
@@ -89,7 +89,7 @@ public class GuiConfig extends GuiConfigsBase {
 
     public static int addAllChildrenButtons(GuiBase screen, TabSupplier supplier, int x, int y) {
         int rows = 0;
-        if (supplier.getChildren() != null && supplier.getChildren().size() != 0) {
+        if (supplier.getChildren() != null && !supplier.getChildren().isEmpty()) {
             x += 2;
             screen.addLabel(x, y, 10, 22, new Color4f(1, 1, 1, 1).intValue, ">");
             x += 8;
@@ -125,8 +125,7 @@ public class GuiConfig extends GuiConfigsBase {
         return rows;
     }
 
-    public static int addNestedTabButtons(GuiBase screen, TabSupplier supplier, int x, int y) {
-        int rows = 1;
+    public static void addNestedTabButtons(GuiBase screen, TabSupplier supplier, int x, int y) {
         for (TabSupplier tab : supplier.getChildren()) {
             int width = screen.getStringWidth(tab.getDisplayName()) + 10;
 
@@ -134,12 +133,10 @@ public class GuiConfig extends GuiConfigsBase {
             {
                 x = 10;
                 y += 22;
-                ++rows;
             }
 
             x += createTabButton(screen, x, y, width, tab, supplier);
         }
-        return rows;
     }
 
     private static int createTabButton(GuiBase screen, int x, int y, int width, TabSupplier tab) {

@@ -27,7 +27,7 @@ public class CleanButton extends ButtonBase {
 
     protected Color baseColor;
 
-    private MinecraftClient client = MinecraftClient.getInstance();
+    private final MinecraftClient client = MinecraftClient.getInstance();
 
     /**
      * Constructs a new simple clean button

@@ -14,12 +14,10 @@ import com.google.gson.JsonPrimitive;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.options.ConfigBoolean;
 import fi.dy.masa.malilib.util.FileUtils;
-import fi.dy.masa.malilib.util.JsonUtils;
 import io.github.darkkronicle.advancedchatcore.config.ConfigStorage;
 import io.github.darkkronicle.advancedchatcore.config.SaveableConfig;
 import io.github.darkkronicle.advancedchatfilters.AdvancedChatFilters;
 import io.github.darkkronicle.advancedchatfilters.FiltersHandler;
-import io.github.darkkronicle.advancedchatfilters.scripting.ScriptManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +53,6 @@ public class FiltersConfigStorage implements IConfigHandler {
             Filter.FilterJsonSave filterSave = new Filter.FilterJsonSave();
 
             if (element != null && element.isJsonObject()) {
-                ScriptManager.getInstance().init();
                 JsonObject root = element.getAsJsonObject();
 
                 JsonElement advanced = root.get(ADVANCED_ON.key);
@@ -80,13 +77,6 @@ public class FiltersConfigStorage implements IConfigHandler {
                         IMPORTED_FILTERS.add(e.getAsString());
                     }
                 }
-
-                JsonElement adv = root.get(ADVANCED_FILTER_KEY);
-                if (adv != null && adv.isJsonArray()) {
-                    ScriptManager.getInstance().applyJson(adv.getAsJsonArray());
-                }
-
-                int version = JsonUtils.getIntegerOrDefault(root, "configVersion", 0);
             }
         }
         FiltersHandler.getInstance().loadFilters();
@@ -110,7 +100,6 @@ public class FiltersConfigStorage implements IConfigHandler {
                 imported.add(s);
             }
             root.add(FILTER_KEY, arr);
-            root.add(ADVANCED_FILTER_KEY, ScriptManager.getInstance().getJson());
             root.add(IMPORTED_KEY, imported);
             root.add("config_version", new JsonPrimitive(CONFIG_VERSION));
 

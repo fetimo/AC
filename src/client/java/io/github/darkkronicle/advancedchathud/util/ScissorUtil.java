@@ -14,11 +14,6 @@ public class ScissorUtil {
         GlStateManager._scissorBox(x, y, width, height);
     }
 
-    public static void applyScissor(int x1, int y1, int x2, int y2) {
-            GlStateManager._enableScissorTest();
-            GlStateManager._scissorBox(x1, y1, x2 - x1, y2 - y1);
-    }
-
     public static void resetScissor() {
         GlStateManager._disableScissorTest();
     }

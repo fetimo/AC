@@ -23,7 +23,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -141,7 +140,7 @@ public class AdvancedChatScreen extends GuiBase {
         if (!this.originalChatText.equals("")) {
             this.chatField.setText(this.originalChatText);
         } else if (ConfigStorage.ChatScreen.PERSISTENT_TEXT.config.getBooleanValue()
-                && !last.equals("")) {
+                && !last.isEmpty()) {
             this.chatField.setText(last);
         }
         this.chatField.setChangedListener(this::onChatFieldUpdate);

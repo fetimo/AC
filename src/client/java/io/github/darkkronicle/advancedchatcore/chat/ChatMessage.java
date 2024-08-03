@@ -128,7 +128,7 @@ public class ChatMessage {
             LocalTime time,
             Color backgroundColor,
             int width,
-            MessageOwner owner,
+            @Nullable MessageOwner owner,
             @Nullable MessageSignatureData signature,
             @Nullable MessageIndicator indicator) {
         this.creationTick = creationTick;
@@ -146,7 +146,7 @@ public class ChatMessage {
     }
 
     /**
-     * Reformat's the line breaks
+     * Reformats the line breaks
      *
      * @param width Width that the line breaks should be enforced
      */
@@ -164,7 +164,7 @@ public class ChatMessage {
     }
 
     /**
-     * Check if the original text is similar to another's original text
+     * Check if the original text is similar to another original text
      *
      * @param message Message to compare to
      * @return If it's similar
@@ -174,7 +174,7 @@ public class ChatMessage {
     }
 
     /**
-     * Get's the total amount of lines
+     * Gets the total amount of lines
      *
      * @return Line count
      */

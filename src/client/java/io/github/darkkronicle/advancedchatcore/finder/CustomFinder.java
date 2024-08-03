@@ -106,7 +106,6 @@ public class CustomFinder extends AbstractRegistry<IFinder, CustomFinder.CustomF
         private final String translation;
         private final CustomFinder registry;
         private final String infoTranslation;
-        private final boolean hidden;
         private final boolean active;
 
         private CustomFinderOption(
@@ -134,7 +133,6 @@ public class CustomFinder extends AbstractRegistry<IFinder, CustomFinder.CustomF
             this.translation = translation;
             this.registry = registry;
             this.infoTranslation = infoTranslation;
-            this.hidden = hidden;
             this.active = active;
         }
 

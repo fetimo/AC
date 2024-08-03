@@ -11,7 +11,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.github.darkkronicle.advancedchatcore.chat.ChatHistory;
 import io.github.darkkronicle.advancedchatcore.chat.ChatMessage;
-import io.github.darkkronicle.advancedchatcore.config.ConfigStorage;
 import io.github.darkkronicle.advancedchatcore.interfaces.IChatMessageProcessor;
 import io.github.darkkronicle.advancedchatlog.config.ChatLogConfigStorage;
 import io.github.darkkronicle.advancedchatlog.gui.ChatLogScreen;

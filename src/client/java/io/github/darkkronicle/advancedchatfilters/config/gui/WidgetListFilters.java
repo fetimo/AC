@@ -19,7 +19,6 @@ import java.util.List;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class WidgetListFilters extends WidgetListBase<Filter, WidgetFilterEntry> {
 

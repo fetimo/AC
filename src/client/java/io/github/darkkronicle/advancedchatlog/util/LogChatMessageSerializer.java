@@ -7,6 +7,7 @@
  */
 package io.github.darkkronicle.advancedchatlog.util;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.github.darkkronicle.advancedchatcore.chat.ChatMessage;
 import io.github.darkkronicle.advancedchatcore.interfaces.IJsonSave;
@@ -17,13 +18,16 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.registry.BuiltinRegistries;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class LogChatMessageSerializer implements IJsonSave<LogChatMessage> {
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     public LogChatMessageSerializer() {}
 
@@ -53,17 +57,19 @@ public class LogChatMessageSerializer implements IJsonSave<LogChatMessage> {
         LocalDate date = dateTime.toLocalDate();
         LocalTime time = dateTime.toLocalTime();
 
-        Text display = Text.Serialization.fromJson(obj.get("display").getAsString());
-        Text original = Text.Serialization.fromJson(obj.get("original").getAsString());
-        int stacks = obj.get("stacks").getAsByte();
+        MinecraftClient client = MinecraftClient.getInstance();
+        DynamicRegistryManager.Immutable registries = client.getNetworkHandler().getRegistryManager();
+
+        Text display = Text.Serialization.fromJson(obj.get("display").getAsString(), registries);
+        Text original = Text.Serialization.fromJson(obj.get("original").getAsString(), registries);
+
         ChatMessage message =
                 ChatMessage.builder()
                         .time(time)
                         .displayText(display)
                         .originalText(original)
                         .build();
-        LogChatMessage log = new LogChatMessage(message, date);
-        return log;
+        return new LogChatMessage(message, date);
     }
 
     @Override
@@ -73,8 +79,11 @@ public class LogChatMessageSerializer implements IJsonSave<LogChatMessage> {
         LocalDateTime dateTime = LocalDateTime.of(message.getDate(), chat.getTime());
         json.addProperty("time", formatter.format(dateTime));
         json.addProperty("stacks", chat.getStacks());
-        json.add("display", Text.Serialization.toJsonTree(transfer(chat.getDisplayText())));
-        json.add("original", Text.Serialization.toJsonTree(transfer(chat.getOriginalText())));
+
+        JsonElement display = new Text.Serializer(BuiltinRegistries.createWrapperLookup()).serialize(transfer(chat.getDisplayText()), null, null);
+        JsonElement original = new Text.Serializer(BuiltinRegistries.createWrapperLookup()).serialize(transfer(chat.getDisplayText()), null, null);
+        json.add("display", display);
+        json.add("original", original);
         return json;
     }
 }

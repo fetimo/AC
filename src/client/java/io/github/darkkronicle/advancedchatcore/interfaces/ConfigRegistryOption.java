@@ -25,14 +25,14 @@ import net.fabricmc.api.Environment;
 public interface ConfigRegistryOption<TYPE>
         extends RegistryOption<TYPE>, IConfigOptionListEntry, IJsonApplier {
     /**
-     * Get's a configurable boolean for whether or not the option is active.
+     * Gets a configurable boolean for whether or not the option is active.
      *
      * @return Configurable boolean
      */
     SaveableConfig<ConfigBoolean> getActive();
 
     /**
-     * Get's if the option is currently active.
+     * Gets if the option is currently active.
      *
      * @return If the option is active
      */
@@ -42,7 +42,7 @@ public interface ConfigRegistryOption<TYPE>
     }
 
     /**
-     * Save's the config option and the object that it is wrapping.
+     * Saves the config option and the object that it is wrapping.
      *
      * <p>By default it will only save if the option is active or not, but if the {@link TYPE}
      * implements {@link IJsonApplier} it will also save/load that object.
@@ -66,7 +66,7 @@ public interface ConfigRegistryOption<TYPE>
     }
 
     /**
-     * Load's the config option and the object that it is wrapping.
+     * Loads the config option and the object that it is wrapping.
      *
      * <p>By default it will only load if the option is active or not, but if the {@link TYPE}
      * implements {@link IJsonApplier} it will also save/load that object.

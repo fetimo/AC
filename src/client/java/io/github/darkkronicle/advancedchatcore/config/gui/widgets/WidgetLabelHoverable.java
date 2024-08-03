@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class WidgetLabelHoverable extends WidgetLabel {
 

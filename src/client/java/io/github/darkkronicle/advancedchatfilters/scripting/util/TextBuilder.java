@@ -7,8 +7,6 @@
  */
 package io.github.darkkronicle.advancedchatfilters.scripting.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,13 +19,13 @@ public class TextBuilder {
 
     private MutableText text;
 
-    /** Create's a new instance with the only text being an empty string. */
+    /** Creates a new instance with the only text being an empty string. */
     public TextBuilder() {
         this("");
     }
 
     /**
-     * Create's a new instance with empty style
+     * Creates a new instance with empty style
      *
      * @param content Content of the text
      */
@@ -53,7 +51,7 @@ public class TextBuilder {
     }
 
     /**
-     * Set's the color based off of an integer. Set's it through *all parts* - Color should be
+     * Sets the color based off of an integer. Set's it through *all parts* - Color should be
      * hexadecimal
      *
      * @param color Color to set the style to
@@ -64,7 +62,7 @@ public class TextBuilder {
     }
 
     /**
-     * Set's a style from another one to *all parts*
+     * Sets a style from another one to *all parts*
      *
      * @param style Style to set
      */
@@ -94,7 +92,7 @@ public class TextBuilder {
     }
 
     /**
-     * Set's an insertion string that will trigger on click. Will apply to the textbox.
+     * Sets an insertion string that will trigger on click. Will apply to the textbox.
      *
      * @param insertion The insertion that will get placed
      */
@@ -124,7 +122,7 @@ public class TextBuilder {
     }
 
     /**
-     * Set's the font using a namespace.
+     * Sets the font using a namespace.
      *
      * <p>namespace:name
      *
@@ -138,7 +136,7 @@ public class TextBuilder {
     }
 
     /**
-     * Add's a string to the last piece of text. Will inherit the style of the last one.
+     * Adds a string to the last piece of text. Will inherit the style of the last one.
      *
      * @param content Content to add
      */
@@ -148,7 +146,7 @@ public class TextBuilder {
     }
 
     /**
-     * Set's the ClickEvent of the text to *all parts*
+     * Sets the ClickEvent of the text to *all parts*
      *
      * <p>Possible actions are: - open_url - run_command - suggest_command - change_page -
      * copy_to_clipboard
@@ -167,7 +165,7 @@ public class TextBuilder {
     }
 
     /**
-     * Set's the {@link Text} that will be shown on hover.
+     * Sets the {@link Text} that will be shown on hover.
      *
      * @param hoverText Text for hover
      */

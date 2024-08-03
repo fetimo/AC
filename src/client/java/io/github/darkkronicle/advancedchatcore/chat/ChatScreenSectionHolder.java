@@ -17,12 +17,12 @@ import lombok.Getter;
  * A class to handle the construction and distribution of {@link AdvancedChatScreenSection} when
  * {@link AdvancedChatScreen} is created.
  */
+@Getter
 public class ChatScreenSectionHolder {
 
     private static final ChatScreenSectionHolder INSTANCE = new ChatScreenSectionHolder();
 
     /** All suppliers for the sections */
-    @Getter
     private final List<Function<AdvancedChatScreen, AdvancedChatScreenSection>> sectionSuppliers =
             new ArrayList<>();
 

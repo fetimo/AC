@@ -18,7 +18,6 @@ import io.github.darkkronicle.advancedchatfilters.filters.matchreplace.OnlyMatch
 import io.github.darkkronicle.advancedchatfilters.filters.processors.*;
 import io.github.darkkronicle.advancedchatfilters.registry.MatchProcessorRegistry;
 import io.github.darkkronicle.advancedchatfilters.registry.MatchReplaceRegistry;
-import io.github.darkkronicle.advancedchatfilters.scripting.ScriptManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -35,8 +34,6 @@ public class FiltersInitHandler implements IInitializationHandler {
 
         // Make it so filters do stuff
         MessageDispatcher.getInstance().registerPreFilter(FiltersHandler.getInstance(), -1);
-        ScriptManager.getInstance().init();
-        MessageDispatcher.getInstance().registerPreFilter(ScriptManager.getInstance(), -1);
 
         // Initiate match types
         MatchReplaceRegistry matchRegistry = MatchReplaceRegistry.getInstance();

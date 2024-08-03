@@ -17,10 +17,11 @@ import net.minecraft.client.util.math.MatrixStack;
  *
  * <p>This is used so that many modules can add onto the screen without problems occuring.
  */
+@Getter
 public abstract class AdvancedChatScreenSection implements Drawable {
 
     /** The {@link AdvancedChatScreen} that is linked to this section */
-    @Getter private final AdvancedChatScreen screen;
+    private final AdvancedChatScreen screen;
 
     public AdvancedChatScreenSection(AdvancedChatScreen screen) {
         this.screen = screen;
@@ -97,11 +98,11 @@ public abstract class AdvancedChatScreenSection implements Drawable {
     }
 
     /**
-     * @param mouseX
-     * @param mouseY
-     * @param button
-     * @param deltaX
-     * @param deltaY
+     * @param mouseX MouseX
+     * @param mouseY MouseY
+     * @param button Mouse button
+     * @param deltaX DeltaX
+     * @param deltaY DeltaY
      * @return If it was handled and should stop.
      */
     public boolean mouseDragged(

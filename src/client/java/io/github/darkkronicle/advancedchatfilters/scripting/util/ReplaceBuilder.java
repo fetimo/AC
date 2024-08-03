@@ -26,10 +26,10 @@ public class ReplaceBuilder {
     public ReplaceBuilder() {}
 
     /**
-     * Applies replacements to a {@link FluidText}
+     * Applies replacements to {@link Text}
      *
      * @param filter Text to apply it to
-     * @return Filtered {@link FluidText}
+     * @return Filtered {@link Text}
      */
     public Text build(Text filter) {
         Text text = filter.copy();
@@ -38,7 +38,7 @@ public class ReplaceBuilder {
     }
 
     /**
-     * Add's a replacement to trigger on build.
+     * Adds a replacement to trigger on build.
      *
      * <p>Replacement will inherit the style of whatever it is replacing
      *
@@ -52,7 +52,7 @@ public class ReplaceBuilder {
     }
 
     /**
-     * Add's a replacement to trigger on build.
+     * Adds a replacement to trigger on build.
      *
      * @param match {@link StringMatch} match data
      * @param text Text to replace to

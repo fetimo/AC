@@ -23,7 +23,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 
 @Environment(EnvType.CLIENT)
 public class WidgetRegistryOptionEntry<T extends ConfigRegistryOption<?>>
@@ -53,7 +52,7 @@ public class WidgetRegistryOptionEntry<T extends ConfigRegistryOption<?>>
         y += 1;
 
         int pos = x + width - 2;
-        pos -= addOnOffButton(pos, y, ButtonListener.Type.ACTIVE, option.isActive());
+        pos -= addOnOffButton(pos, y, option.isActive());
         if (this.option.getScreen(parent) != null) {
             pos -= addButton(pos, y, ButtonListener.Type.CONFIGURE);
         }
@@ -68,9 +67,9 @@ public class WidgetRegistryOptionEntry<T extends ConfigRegistryOption<?>>
         return button.getWidth() + 1;
     }
 
-    private int addOnOffButton(int xRight, int y, ButtonListener.Type type, boolean isCurrentlyOn) {
-        ButtonOnOff button = new ButtonOnOff(xRight, y, -1, true, type.translate, isCurrentlyOn);
-        this.addButton(button, new ButtonListener<>(type, this));
+    private int addOnOffButton(int xRight, int y, boolean isCurrentlyOn) {
+        ButtonOnOff button = new ButtonOnOff(xRight, y, -1, true, ButtonListener.Type.ACTIVE.translate, isCurrentlyOn);
+        this.addButton(button, new ButtonListener<>(ButtonListener.Type.ACTIVE, this));
 
         return button.getWidth() + 1;
     }

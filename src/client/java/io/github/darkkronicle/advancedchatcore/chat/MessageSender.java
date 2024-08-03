@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class MessageSender {
@@ -50,16 +51,16 @@ public class MessageSender {
         }
         this.client.inGameHud.getChatHud().addToMessageHistory(unfiltered);
 
-        if (string.length() == 0) {
+        if (string.isEmpty()) {
             AdvancedChatCore.LOGGER.log(Level.WARN, "Blank message was attempted to be sent. " + unfiltered);
             return;
         }
 
         if (client.player != null) {
             if (string.startsWith("/")) {
-                this.client.getNetworkHandler().sendChatCommand(string.substring(1));
+                Objects.requireNonNull(this.client.getNetworkHandler()).sendChatCommand(string.substring(1));
             } else {
-                this.client.getNetworkHandler().sendChatMessage(string);
+                Objects.requireNonNull(this.client.getNetworkHandler()).sendChatMessage(string);
             }
         }
     }

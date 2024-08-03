@@ -17,10 +17,11 @@ import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+@Getter
 @Environment(EnvType.CLIENT)
 public class HudChatMessageHolder implements IChatMessageProcessor {
 
-    @Getter private final List<HudChatMessage> messages = new ArrayList<>();
+    private final List<HudChatMessage> messages = new ArrayList<>();
 
     private static final HudChatMessageHolder INSTANCE = new HudChatMessageHolder();
 

@@ -95,7 +95,7 @@ public class SharingScreen extends GuiBase {
         @Override
         public void actionPerformedWithButton(ButtonBase button, int mouseButton) {
             try {
-                if (parent.text.getText().equals("")) {
+                if (parent.text.getText().isEmpty()) {
                     throw new NullPointerException("Message can't be blank!");
                 }
                 if (type == Type.IMPORT_FILTER) {

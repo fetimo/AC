@@ -66,7 +66,7 @@ public class InitHandler implements IInitializationHandler {
             if (ConfigStorage.General.FILTER_PROFANITY.config.getBooleanValue()) {
                 List<StringMatch> profanity =
                         ProfanityUtil.getInstance().getBadWords(text.getString(), (float) ConfigStorage.General.PROFANITY_ABOVE.config.getDoubleValue(), ConfigStorage.General.PROFANITY_ON_WORD_BOUNDARIES.config.getBooleanValue());
-                if (profanity.size() == 0) {
+                if (profanity.isEmpty()) {
                     return Optional.empty();
                 }
                 Map<StringMatch, StringInsert> insertions =
@@ -82,11 +82,11 @@ public class InitHandler implements IInitializationHandler {
             return Optional.empty();
         }, -1);
 
-        // This constructs the default chat suggestor
+        // This constructs the default chat suggester
         ChatScreenSectionHolder.getInstance()
                 .addSectionSupplier(
                         (advancedChatScreen -> {
-                            if (AdvancedChatCore.CREATE_SUGGESTOR) {
+                            if (AdvancedChatCore.CREATE_SUGGESTER) {
                                 return new DefaultChatSuggestor(advancedChatScreen);
                             }
                             return null;

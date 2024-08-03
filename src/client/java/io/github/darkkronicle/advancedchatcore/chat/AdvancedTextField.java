@@ -333,7 +333,7 @@ public class AdvancedTextField extends TextFieldWidget {
     }
 
     /**
-     * Remove's all history past a certain index
+     * Removes all history past a certain index
      *
      * @param index Index to prune from. Non-inclusive.
      */

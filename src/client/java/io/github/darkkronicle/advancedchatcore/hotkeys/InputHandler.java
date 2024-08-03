@@ -10,12 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class InputHandler implements IKeybindProvider, IKeyboardInputHandler, IMouseInputHandler {
 
     private final static InputHandler INSTANCE = new InputHandler();
-    @Getter
     private final Map<String, List<ConfigHotkey>> hotkeys = new HashMap<>();
-    @Getter
     private final Map<String, String> translation = new HashMap<>();
 
     public static InputHandler getInstance() {

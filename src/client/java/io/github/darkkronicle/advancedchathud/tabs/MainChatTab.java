@@ -123,7 +123,7 @@ public class MainChatTab extends AbstractChatTab {
         });
 
         Optional<List<Path>> files = FileUtil.getFilesWithExtensionCaught(konstructDir, ".knst");
-        if (files.isPresent() && files.get().size() != 0) {
+        if (files.isPresent() && !files.get().isEmpty()) {
             this.loadKonstruct(files.get());
         }
 

@@ -32,7 +32,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 
 /*
    This class is based heavily off of https://github.com/maruohon/minihud/blob/d565d39c68bdcd3ed1e1cf2007491e03d9659f34/src/main/java/fi/dy/masa/minihud/gui/widgets/WidgetShapeEntry.java#L19 which is off the GNU LGPL
@@ -109,7 +108,6 @@ public class WidgetFilterEntry extends WidgetListEntryBase<Filter> {
                 addOnOffButton(
                         pos,
                         y,
-                        ButtonListener.Type.ACTIVE,
                         filter.getActive().config.getBooleanValue());
         pos -= addButton(pos, y, ButtonListener.Type.CONFIGURE, null);
 
@@ -123,9 +121,9 @@ public class WidgetFilterEntry extends WidgetListEntryBase<Filter> {
         return button.getWidth() + 1;
     }
 
-    private int addOnOffButton(int xRight, int y, ButtonListener.Type type, boolean isCurrentlyOn) {
-        ButtonOnOff button = new ButtonOnOff(xRight, y, -1, true, type.translate, isCurrentlyOn);
-        this.addButton(button, new ButtonListener(type, this));
+    private int addOnOffButton(int xRight, int y, boolean isCurrentlyOn) {
+        ButtonOnOff button = new ButtonOnOff(xRight, y, -1, true, ButtonListener.Type.ACTIVE.translate, isCurrentlyOn);
+        this.addButton(button, new ButtonListener(ButtonListener.Type.ACTIVE, this));
 
         return button.getWidth() + 1;
     }

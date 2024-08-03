@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 /** An interface to supply a screen. */
 public interface IScreenSupplier {
     /**
-     * Get's a supplier of a screen based off of a parent.
+     * Gets a supplier of a screen based off of a parent.
      *
      * @param parent Parent screen (nullable)
      * @return Supplier of a screen

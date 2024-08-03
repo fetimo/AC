@@ -1,29 +1,86 @@
-plugins {
-	id 'fabric-loom' version '1.0-SNAPSHOT'
-	id 'maven-publish'
-	id "io.freefair.lombok" version "6.0.0-m2"
+buildscript {
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+
+	dependencies {
+		classpath 'net.fabricmc:fabric-loom:1.7-SNAPSHOT'
+		classpath "net.dumbcode.gradlehook:GradleHook:1.3.1"
+		classpath "net.darkhax.curseforgegradle:CurseForgeGradle:1.0.11"
+		classpath "org.kohsuke:github-api:1.114"
+//		classpath "org.ajoberstar.grgit:grgit-gradle:4.1.0"
+		classpath "com.modrinth.minotaur:Minotaur:2.4.4"
+	}
 }
 
-apply from: 'https://raw.githubusercontent.com/DarkKronicle/GradleScripts/main/gradle/publish.gradle'
+plugins {
+	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'maven-publish'
+	id "io.freefair.lombok" version "8.6"
+}
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+//buildscript.configurations.classpath.each { println it }
 
-archivesBaseName = project.archives_base_name
-version = "${project.minecraft_version}-${project.mod_version}"
-group = project.maven_group
+//apply plugin: net.dumbcode.gradlehook.GradleWebhookPlugin
+//apply plugin: net.darkhax.curseforgegradle.CurseForgeGradlePlugin
+//apply plugin: org.ajoberstar.grgit.gradle.GrgitPlugin
+//apply plugin: com.modrinth.minotaur.Minotaur
+//apply plugin: 'maven-publish'
 
-Properties additionalProperties = new Properties()
+base {
+	archivesName = project.archives_base_name
+}
+ext.versionDisplay = "${project.minecraft_version}-${getVersion()}"
+
+ext.additionalProperties = new Properties()
 if (file("extra.properties").exists()) {
 	additionalProperties.load(file("extra.properties").newReader())
 }
+
+def getVersion() {
+	if (project.hasProperty('currentTag')) {
+		if (project.currentTag.startsWith("v")) {
+			return project.currentTag.substring(1)
+		}
+		return project.currentTag
+	}
+	return project.mod_version
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+
+ext.curseReleaseType = "release"
+ext.releaseChangelog = "No Changelog Available"
+ext.stabilitySuffix = ""
+ext.curseforgeDownloadLink = null
+ext.modrinthDownloadLink = null
+ext.githubDownloadLink = null
+ext.releaseType = project.default_release_type
+
+ext.mainFile = null
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+version = "${project.minecraft_version}-${project.mod_version}"
+group = project.maven_group
 
 repositories {
 	mavenCentral()
 	maven { url 'https://masa.dy.fi/maven' }
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 	maven { url 'https://jitpack.io' }
-	maven { url 'https://maven.wispforest.io' }
 }
 
 dependencies {
@@ -31,17 +88,16 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	modImplementation "fi.dy.masa.malilib:malilib-fabric-1.20.2:${project.malilib_version}"
+	modImplementation "fi.dy.masa.malilib:malilib-fabric-1.20.6:${project.malilib_version}"
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	implementation "com.github.DarkKronicle.Konstruct:addons:${project.konstruct_version}"
 	implementation "com.github.DarkKronicle.Konstruct:core:${project.konstruct_version}"
 
-	implementation 'com.electronwill.night-config:toml:3.6.5'
+	implementation "com.electronwill.night-config:toml:${project.toml_version}"
 	// Transitive
-	include 'com.electronwill.night-config:toml:3.6.5'
-	include 'com.electronwill.night-config:core:3.6.5'
-
+	include "com.electronwill.night-config:toml:${project.toml_version}"
+	include "com.electronwill.night-config:core:${project.toml_version}"
 
 	include "com.github.DarkKronicle.Konstruct:addons:${project.konstruct_version}"
 	include "com.github.DarkKronicle.Konstruct:core:${project.konstruct_version}"
@@ -49,12 +105,16 @@ dependencies {
 	implementation "org.mariuszgromada.math:MathParser.org-mXparser:${project.mxparser_version}"
 	include "org.mariuszgromada.math:MathParser.org-mXparser:${project.mxparser_version}"
 
-	implementation "io.github.maowimpl:owo:${project.owo_version}"
-	include "io.github.maowimpl:owo:${project.owo_version}"
+	implementation "org.apache.commons:commons-csv:${project.csv_version}"
+	include "org.apache.commons:commons-csv:${project.csv_version}"
 
-	implementation 'org.apache.commons:commons-csv:1.8'
-	include 'org.apache.commons:commons-csv:1.8'
-
+	// Filters
+//	implementation "org.openjdk.nashorn:nashorn-core:${project.nashorn_version}"
+//	implementation "org.javadelight:delight-nashorn-sandbox:${project.nashorn_sandbox_version}"
+//
+//	include "org.openjdk.nashorn:nashorn-core:${project.nashorn_version}"
+//	include "org.javadelight:delight-nashorn-sandbox:${project.nashorn_sandbox_version}"
+//	include group: 'org.webjars.bower', name: 'js-beautify', version: project.js_beautify_version
 }
 
 processResources {
@@ -65,22 +125,28 @@ processResources {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
-	it.options.release = 17
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-	from sourceSets.main.allSource
-}
+//tasks.withType(JavaCompile).configureEach {
+//	it.options.encoding = "UTF-8"
+//	it.options.release = 21
+//}
 
 jar {
 	from "LICENSE.txt"
 }
 
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"advancedchat" {
+//			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
 tasks.register('downloadExtra') {
-	def f = new File('./src/main/resources/swear_words.csv')
+	def f = new File('./src/client/resources/swear_words.csv')
 	if (!f.exists()) {
 		new URL('https://raw.githubusercontent.com/surge-ai/profanity/main/profanity_en.csv').withInputStream{ i -> f.withOutputStream{ it << i }}
 	}
@@ -93,20 +159,17 @@ assemble {
 // configure the maven publication
 publishing {
 	publications {
-		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
+			from components.java
 		}
 	}
 
-	// select the repositories you want to publish to
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		// uncomment to publish to the local maven
-		// mavenLocal()
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
 	}
 }

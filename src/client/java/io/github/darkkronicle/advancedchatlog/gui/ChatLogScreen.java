@@ -32,7 +32,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -60,8 +59,6 @@ public class ChatLogScreen extends GuiBase {
 
     private List<ChatMessage.AdvancedChatLine> renderLines;
     private GuiTextFieldGeneric search = null;
-    private TextFieldRunnable send = null;
-    private ButtonGeneric searchType = null;
     private FindType findType = FindType.LITERAL;
 
     public ChatLogScreen() {
@@ -102,7 +99,7 @@ public class ChatLogScreen extends GuiBase {
                     return true;
                 })
         );
-        searchType = new ButtonGeneric(width / 2 + 72, 6, 70, false, findType.getDisplayName());
+        ButtonGeneric searchType = new ButtonGeneric(width / 2 + 72, 6, 70, false, findType.getDisplayName());
         addButton(
                 searchType,
                 ((button, mouseButton) -> {
@@ -114,7 +111,7 @@ public class ChatLogScreen extends GuiBase {
                     button.setDisplayString(findType.getDisplayName());
                     searchText(search.getText());
                 }));
-        send = new TextFieldRunnable(
+        TextFieldRunnable send = new TextFieldRunnable(
                 2,
                 height - 15,
                 width - 4,

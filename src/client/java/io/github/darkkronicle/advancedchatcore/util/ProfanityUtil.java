@@ -30,11 +30,12 @@ import org.apache.logging.log4j.Level;
  *
  * @author PimDeWitte
  */
+@Getter
 @Environment(EnvType.CLIENT)
 public class ProfanityUtil {
-    @Getter private final Map<Float, List<String>> words = new HashMap<>();
+    private final Map<Float, List<String>> words = new HashMap<>();
 
-    @Getter private int largestWordLength = 0;
+    private int largestWordLength = 0;
 
     private static final ProfanityUtil INSTANCE = new ProfanityUtil();
 
@@ -60,7 +61,8 @@ public class ProfanityUtil {
             } else {
                 fileReader = new FileReader(file);
             }
-            CSVParser csv = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase());
+            CSVParser csv = new CSVParser(fileReader, CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).setIgnoreHeaderCase(true).build());
+//            CSVParser csv = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase());
             int counter = 0;
             for (CSVRecord record : csv) {
                 counter++;
@@ -105,13 +107,12 @@ public class ProfanityUtil {
             wordBoundaries = SearchUtils.findMatches(input, "\\b", FindType.REGEX)
                     .map(matches -> matches.stream().map(m -> m.start).toList())
                     .orElseGet(ArrayList::new);
-            if (wordBoundaries.size() == 0) {
+            if (wordBoundaries.isEmpty()) {
                 return new ArrayList<>();
             }
         } else {
             wordBoundaries = new ArrayList<>();
         }
-
 
         List<String> wordsToFind = getAboveSeverity(severity);
 

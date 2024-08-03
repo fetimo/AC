@@ -205,7 +205,7 @@ public class ChatTab {
                 obj.add(option.key, option.config.getAsJsonElement());
             }
             JsonArray find = new JsonArray();
-            if (tab.getMatches().size() == 0) {
+            if (tab.getMatches().isEmpty()) {
                 tab.getMatches().add(new Match("I will match to text!", FindType.LITERAL));
             }
             for (Match m : tab.getMatches()) {

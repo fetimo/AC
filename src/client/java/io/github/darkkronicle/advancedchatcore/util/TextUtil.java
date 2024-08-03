@@ -139,7 +139,7 @@ public class TextUtil {
      */
     public Text replaceStrings(Text input, Map<StringMatch, StringInsert> matches) {
         // If there's no matches nothing should get replaced.
-        if (matches.size() == 0) {
+        if (matches.isEmpty()) {
             return input;
         }
         // Sort the matches and then get a nice easy iterator for navigation

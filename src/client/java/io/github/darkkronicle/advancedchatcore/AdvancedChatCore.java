@@ -33,15 +33,15 @@ public class AdvancedChatCore implements ClientModInitializer {
     public static final String MOD_ID = "advancedchatcore";
 
     /**
-     * Whether or not messages should be sent to the HUD. Used for other modules overwriting HUD.
+     * Whether messages should be sent to the HUD. Used for other modules overwriting HUD.
      */
     public static boolean FORWARD_TO_HUD = true;
 
     /**
-     * Whether or not the default chat suggestor should be created. Used for modules overwriting the
-     * suggestor.
+     * Whether the default chat suggester should be created. Used for modules overwriting the
+     * suggester.
      */
-    public static boolean CREATE_SUGGESTOR = true;
+    public static boolean CREATE_SUGGESTER = true;
 
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
@@ -77,7 +77,7 @@ public class AdvancedChatCore implements ClientModInitializer {
     }
 
     /**
-     * Get's a resource from src/resources. Works in a emulated environment.
+     * Gets a resource from src/resources. Works in a emulated environment.
      *
      * @param path Path from the resources to get
      * @return Stream of the resource
@@ -96,7 +96,7 @@ public class AdvancedChatCore implements ClientModInitializer {
     }
 
     /**
-     * Get's a random string.
+     * Gets a random string.
      *
      * @return Random generated string.
      */

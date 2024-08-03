@@ -7,7 +7,6 @@
  */
 package io.github.darkkronicle.advancedchatfilters;
 
-import fi.dy.masa.malilib.event.InitializationHandler;
 import io.github.darkkronicle.advancedchatcore.ModuleHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

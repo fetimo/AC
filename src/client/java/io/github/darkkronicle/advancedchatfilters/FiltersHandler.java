@@ -76,7 +76,7 @@ public class FiltersHandler implements IMessageFilter {
         // TODO restore this
         // text.setBackground(backgroundColor);
 
-        if (text.getString().length() != 0) {
+        if (!text.getString().isEmpty()) {
             return Optional.of(text);
         }
         return Optional.of(TERMINATE.copy());

@@ -26,14 +26,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 
 @Environment(EnvType.CLIENT)
 public class WidgetMatchEntry extends WidgetConfigListEntry<Match> {
 
-    private TextFieldWrapper<GuiTextFieldGeneric> name;
-    private List<TextFieldWrapper<GuiTextFieldGeneric>> texts;
-    private ConfigOptionList findType =
+    private final TextFieldWrapper<GuiTextFieldGeneric> name;
+    private final List<TextFieldWrapper<GuiTextFieldGeneric>> texts;
+    private final ConfigOptionList findType =
             new ConfigOptionList(
                     "advancedchathud.config.match.findtype",
                     FindType.LITERAL,

@@ -22,7 +22,7 @@ import lombok.NonNull;
  */
 public abstract class AbstractRegistry<TYPE, OPTION extends RegistryOption<TYPE>> {
 
-    private List<OPTION> options = new ArrayList<>();
+    private final List<OPTION> options = new ArrayList<>();
 
     public List<OPTION> getAll() {
         return options;
@@ -31,7 +31,7 @@ public abstract class AbstractRegistry<TYPE, OPTION extends RegistryOption<TYPE>
     @Getter private OPTION defaultOption;
 
     /**
-     * Add's an option directly. Recommended to use register
+     * Adds an option directly. Recommended to use register
      *
      * @param option Option to add
      */
@@ -105,7 +105,7 @@ public abstract class AbstractRegistry<TYPE, OPTION extends RegistryOption<TYPE>
     }
 
     public OPTION getNext(OPTION option, boolean forward) {
-        if (options.size() == 0) {
+        if (options.isEmpty()) {
             return null;
         }
         int i = options.indexOf(option);

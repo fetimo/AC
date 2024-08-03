@@ -14,29 +14,24 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Consumer;
 
+@Getter
 public class IconButton extends CleanButton {
 
     @Setter
-    @Getter
     private int padding;
 
     @Setter
-    @Getter
     private Identifier icon;
 
     @Setter
-    @Getter
     private int iconWidth;
 
     @Setter
-    @Getter
     private int iconHeight;
 
     @Setter
-    @Getter
     private Consumer<IconButton> onClick;
 
-    @Getter
     @Setter
     private String onHover;
 

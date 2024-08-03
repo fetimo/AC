@@ -11,11 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 /** An object that will enforce limits on an integer value */
+@Getter
 public class LimitedInteger {
 
-    @Getter private Integer value;
+    private Integer value;
 
-    @Getter @Setter private Integer limit;
+    @Setter private Integer limit;
 
     public LimitedInteger(int limit) {
         this(limit, 0);

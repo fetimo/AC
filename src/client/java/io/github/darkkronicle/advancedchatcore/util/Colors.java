@@ -161,9 +161,10 @@ public class Colors {
         return getColor(key).orElse(new Color(255, 255, 255, 255));
     }
 
+    @Getter
     public static class Palette {
 
-        @Getter private final List<Color> colors;
+        private final List<Color> colors;
 
         public Palette(List<Color> colors) {
             this.colors = colors;

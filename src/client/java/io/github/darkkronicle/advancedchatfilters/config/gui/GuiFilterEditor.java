@@ -31,7 +31,6 @@ import io.github.darkkronicle.advancedchatfilters.filters.ReplaceFilter;
 import io.github.darkkronicle.advancedchatfilters.registry.MatchReplaceRegistry;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -161,7 +160,7 @@ public class GuiFilterEditor extends GuiBase {
         int dY = y;
         // Name button
         y += this.addLabel(x, y, filter.getName().config) + 1;
-        name = this.addStringConfigButton(x, y, 100, 13, filter.getName().config);
+        name = this.addStringConfigButton(x, y, 100, filter.getName().config);
         y += name.getHeight() + 10;
 
         // Strip colors
@@ -225,7 +224,7 @@ public class GuiFilterEditor extends GuiBase {
         // Find
         y = dY;
         y += this.addLabel(x, y, filter.getFindString().config) + 1;
-        findString = this.addStringConfigButton(x, y, windowWidth - (defaultX * 2) - 120, 13, filter.getFindString().config);
+        findString = this.addStringConfigButton(x, y, windowWidth - (defaultX * 2) - 120, filter.getFindString().config);
         findString.setMaxLength(64000);
         findString.setText(filter.getFindString().config.getStringValue());
 
@@ -233,7 +232,7 @@ public class GuiFilterEditor extends GuiBase {
 
         // Replace
         y += this.addLabel(x, y, filter.getReplaceTo().config) + 1;
-        replaceString = this.addStringConfigButton(x, y, windowWidth - (defaultX * 2) - 120, 13, filter.getReplaceTo().config);
+        replaceString = this.addStringConfigButton(x, y, windowWidth - (defaultX * 2) - 120, filter.getReplaceTo().config);
         replaceString.setMaxLength(64000);
         replaceString.setText(filter.getReplaceTo().config.getStringValue());
 
@@ -244,7 +243,7 @@ public class GuiFilterEditor extends GuiBase {
         x = defaultX;
         ButtonGeneric updateTest = new ButtonGeneric(x, y - 1, testWidth, 15, testText);
         addButton(updateTest, (button, mouseButton) -> updateTestMessage());
-        test = addStringConfigButton(defaultX + updateTest.getWidth() + 2, y, windowWidth - (defaultX * 2) - testWidth, 13, null);
+        test = addStringConfigButton(defaultX + updateTest.getWidth() + 2, y, windowWidth - (defaultX * 2) - testWidth, null);
         test.setMaxLength(1000);
 
         updateTestMessage();
@@ -317,8 +316,8 @@ public class GuiFilterEditor extends GuiBase {
         return 8;
     }
 
-    private GuiTextFieldGeneric addStringConfigButton(int x, int y, int width, int height, ConfigString conf) {
-        GuiTextFieldGeneric name = new GuiTextFieldGeneric(x, y, width, height, this.textRenderer);
+    private GuiTextFieldGeneric addStringConfigButton(int x, int y, int width, ConfigString conf) {
+        GuiTextFieldGeneric name = new GuiTextFieldGeneric(x, y, width, 13, this.textRenderer);
         name.setMaxLength(128);
         if (conf != null) {
             name.setText(conf.getStringValue());

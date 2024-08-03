@@ -395,7 +395,7 @@ public class ConfigStorage implements IConfigHandler {
     }
 
     // WINDOWS BAD AND MINECRAFT LIKES UTF-16
-    public static boolean writeJsonToFile(JsonObject root, File file) {
+    public static void writeJsonToFile(JsonObject root, File file) {
         OutputStreamWriter writer = null;
 
         try {
@@ -403,7 +403,6 @@ public class ConfigStorage implements IConfigHandler {
             writer.write(JsonUtils.GSON.toJson(root));
             writer.close();
 
-            return true;
         } catch (IOException e) {
             MaLiLib.logger.warn(
                     "Failed to write JSON data to file '{}'", file.getAbsolutePath(), e);
@@ -417,7 +416,6 @@ public class ConfigStorage implements IConfigHandler {
             }
         }
 
-        return false;
     }
 
     public static void writeOptions(

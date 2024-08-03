@@ -35,7 +35,6 @@ public class AdvancedChatKonstruct {
         addFunction(new RandomFunction());
         addFunction(new ReplaceFunction());
         addFunction(new RoundFunction());
-        addFunction(new OwOFunction());
         addFunction(new RomanNumeralFunction());
         addFunction(new IsMatchFunction());
         addFunction(new TimeFunction());

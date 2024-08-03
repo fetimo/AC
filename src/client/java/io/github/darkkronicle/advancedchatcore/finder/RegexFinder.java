@@ -91,7 +91,7 @@ public class RegexFinder extends PatternFinder {
         int end = matcher.end(group);
         if (groupCondition.startsWith("0")) {
             groupCondition = groupCondition.substring(1);
-            while (groupCondition.length() != 0) {
+            while (!groupCondition.isEmpty()) {
                 MutableText truncated = TextUtil.truncate(input, new StringMatch("", start, end));
                 char val = groupCondition.charAt(0);
                 groupCondition = groupCondition.substring(1);

@@ -32,7 +32,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -48,7 +47,6 @@ public class ChatWindow {
     private double scrollEnd = 0;
 
     private long lastScroll = 0;
-    private int scrollDuration = 200;
 
     @Getter @Setter private double yPercent;
 
@@ -185,7 +183,6 @@ public class ChatWindow {
 
     public void updateScroll() {
         long time = Util.getMeasuringTimeMs();
-        scrollDuration = 300;
         scrolledHeight = scrollStart + (
                 (scrollEnd - scrollStart) * (1 - ((ConfigStorage.Easing) HudConfigStorage.General.SCROLL_TYPE.config.getOptionListValue()).apply(
                         1 - ((float) (time - lastScroll)) / HudConfigStorage.General.SCROLL_TIME.config.getIntegerValue()
@@ -253,9 +250,8 @@ public class ChatWindow {
     private int getPaddedLeftX() {
         return (getLeftX()
                 + (int)
-                        Math.ceil(
-                                HudConfigStorage.General.LEFT_PAD.config.getIntegerValue()
-                                        + (renderRight ? 0 : headOffset())));
+                (double) (HudConfigStorage.General.LEFT_PAD.config.getIntegerValue()
+                        + (renderRight ? 0 : headOffset())));
     }
 
     private double getScale() {
@@ -687,9 +683,8 @@ public class ChatWindow {
         if (!WindowManager.getInstance().isChatFocused()) {
             return null;
         }
-        double relX = mouseX;
         double relY = getConvertedY() - mouseY;
-        double trueX = relX / getScale() - getPaddedLeftX();
+        double trueX = mouseX / getScale() - getPaddedLeftX();
         double trueY = relY / getScale();
         // Divide it by chat scale to get where it actually is
         if (trueX < 0.0D || trueY < 0.0D) {

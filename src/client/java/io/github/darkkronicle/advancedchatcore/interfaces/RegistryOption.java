@@ -19,21 +19,21 @@ import net.minecraft.client.gui.screen.Screen;
  */
 public interface RegistryOption<TYPE> {
     /**
-     * Get's the object that this option is wrapping
+     * Gets the object that this option is wrapping
      *
      * @return Object that is wrapped
      */
     TYPE getOption();
 
     /**
-     * Whether or not this option is currently active
+     * Whether this option is currently active
      *
      * @return If it is active
      */
     boolean isActive();
 
     /**
-     * Get's the string that will be saved inside of the JSON.
+     * Gets the string that will be saved inside of the JSON.
      *
      * @return Save string
      */
@@ -68,7 +68,7 @@ public interface RegistryOption<TYPE> {
     RegistryOption<TYPE> copy(AbstractRegistry<TYPE, ?> registry);
 
     /**
-     * Get's the configuration screen of this option. If this isn't null a button will be generated
+     * Gets the configuration screen of this option. If this isn't null a button will be generated
      * if in a GUI.
      *
      * @param parent Parent screen

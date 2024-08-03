@@ -39,8 +39,8 @@ import org.jetbrains.annotations.Nullable;
 public class MessageDispatcher {
 
     private static final MessageDispatcher INSTANCE = new MessageDispatcher();
-    private ArrayList<IMessageProcessor> processors = new ArrayList<>();
-    private ArrayList<IMessageFilter> preFilters = new ArrayList<>();
+    private final ArrayList<IMessageProcessor> processors = new ArrayList<>();
+    private final ArrayList<IMessageFilter> preFilters = new ArrayList<>();
 
     public static MessageDispatcher getInstance() {
         return INSTANCE;
@@ -109,9 +109,9 @@ public class MessageDispatcher {
      * @param text Text that is received
      */
     public void handleText(Text text, @Nullable MessageSignatureData signature, @Nullable MessageIndicator indicator) {
-        boolean previouslyBlank = text.getString().length() == 0;
+        boolean previouslyBlank = text.getString().isEmpty();
         text = preFilter(text, signature, indicator);
-        if (text.getString().length() == 0 && !previouslyBlank) {
+        if (text.getString().isEmpty() && !previouslyBlank) {
             // No more
             return;
         }

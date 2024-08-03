@@ -19,7 +19,7 @@ import net.fabricmc.api.Environment;
 public class ProfanityFinder implements IFinder {
     @Override
     public boolean isMatch(String input, String toMatch) {
-        return getMatches(input, toMatch).size() != 0;
+        return !getMatches(input, toMatch).isEmpty();
     }
 
     @Override

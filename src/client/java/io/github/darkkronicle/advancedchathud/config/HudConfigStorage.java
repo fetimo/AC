@@ -26,7 +26,6 @@ import io.github.darkkronicle.advancedchatcore.config.ConfigStorage;
 import io.github.darkkronicle.advancedchatcore.config.SaveableConfig;
 import io.github.darkkronicle.advancedchatcore.config.options.ConfigColor;
 import io.github.darkkronicle.advancedchatcore.util.Colors;
-import io.github.darkkronicle.advancedchatcore.util.EasingMethod;
 import io.github.darkkronicle.advancedchathud.AdvancedChatHud;
 import io.github.darkkronicle.advancedchathud.gui.WindowManager;
 import java.io.File;

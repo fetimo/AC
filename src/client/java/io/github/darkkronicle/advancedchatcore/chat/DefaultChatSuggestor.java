@@ -13,13 +13,15 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatInputSuggestor;
-import net.minecraft.client.util.math.MatrixStack;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-/** Handles the CommandSuggestor for the chat */
+/** Handles the CommandSuggester for the chat */
 @Environment(EnvType.CLIENT)
 public class DefaultChatSuggestor extends AdvancedChatScreenSection {
 
-    private ChatInputSuggestor commandSuggestor;
+    private static final Logger log = LogManager.getLogger(DefaultChatSuggestor.class);
+    private ChatInputSuggestor commandSuggester;
 
     public DefaultChatSuggestor(AdvancedChatScreen screen) {
         super(screen);
@@ -27,45 +29,48 @@ public class DefaultChatSuggestor extends AdvancedChatScreenSection {
 
     @Override
     public void onChatFieldUpdate(String chatText, String text) {
-        this.commandSuggestor.setWindowActive(!text.equals(getScreen().getOriginalChatText()));
-        this.commandSuggestor.refresh();
+        this.commandSuggester.setWindowActive(!text.equals(getScreen().getOriginalChatText()));
+        this.commandSuggester.refresh();
+
+        log.info("chatText: " + chatText);
+        log.info("text: " + text);
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return this.commandSuggestor.keyPressed(keyCode, scanCode, modifiers);
+        return this.commandSuggester.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float partialTicks) {
-        this.commandSuggestor.render(context, mouseX, mouseY);
+        this.commandSuggester.render(context, mouseX, mouseY);
     }
 
     @Override
     public void setChatFromHistory(String hist) {
-        this.commandSuggestor.setWindowActive(false);
+        this.commandSuggester.setWindowActive(false);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        return this.commandSuggestor.mouseScrolled(amount);
+        return this.commandSuggester.mouseScrolled(amount);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return this.commandSuggestor.mouseClicked(mouseX, mouseY, button);
+        return this.commandSuggester.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public void resize(int width, int height) {
-        this.commandSuggestor.refresh();
+        this.commandSuggester.refresh();
     }
 
     @Override
     public void initGui() {
         MinecraftClient client = MinecraftClient.getInstance();
         AdvancedChatScreen screen = getScreen();
-        this.commandSuggestor =
+        this.commandSuggester =
                 new ChatInputSuggestor(
                         client,
                         screen,
@@ -77,6 +82,6 @@ public class DefaultChatSuggestor extends AdvancedChatScreenSection {
                         10,
                         true,
                         -805306368);
-        this.commandSuggestor.refresh();
+        this.commandSuggester.refresh();
     }
 }

@@ -47,7 +47,6 @@ public class StyleFormatter {
     private Style currentStyle;
     private Style lastTextStyle = null;
     private final FormattingVisitable visitor;
-    private final int length;
 
     /** Results of different parts of formatting */
     private enum Result {
@@ -74,7 +73,6 @@ public class StyleFormatter {
         this.currentIndex = 0;
         this.realIndex = 0;
         this.currentStyle = Style.EMPTY;
-        this.length = length;
     }
 
     /** Sends the current character with the current information to the visitor. */
