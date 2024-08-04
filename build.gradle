@@ -40,6 +40,7 @@ def getVersion() {
 
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
+	options.release = 21
 }
 
 java {
@@ -50,6 +51,10 @@ java {
 
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
+
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
 }
 
 version = "${project.minecraft_version}-${project.mod_version}"
@@ -67,7 +72,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	modImplementation "fi.dy.masa.malilib:malilib-fabric-1.20.6:${project.malilib_version}"
+	modImplementation "fi.dy.masa.malilib:malilib-fabric-${project.minecraft_version}:${project.malilib_version}"
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	implementation "com.github.DarkKronicle.Konstruct:addons:${project.konstruct_version}"
@@ -86,6 +91,29 @@ dependencies {
 
 	implementation "org.apache.commons:commons-csv:${project.csv_version}"
 	include "org.apache.commons:commons-csv:${project.csv_version}"
+
+	//	ChatBox
+	implementation "org.languagetool:language-en:5.5"
+	// Transitive
+	include "org.languagetool:language-en:5.5"
+	include "org.languagetool:languagetool-core:5.5"
+	include group: 'net.loomchild', name: 'segment', version: '2.0.3'
+	include group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	include group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
+	include group: 'org.jetbrains.intellij.deps', name: 'trove4j', version: '1.0.20200330'
+	include group: 'javax.measure', name: 'unit-api', version: '2.1.3'
+	include group: 'tech.units', name: 'indriya', version: '1.3'
+	include group: 'tech.uom.lib', name: 'uom-lib-common', version: '1.1'
+	include group: 'org.carrot2', name: 'morfologik-fsa', version: '2.1.7'
+	include group: 'org.carrot2', name: 'morfologik-fsa-builders', version: '2.1.7'
+	include group: 'org.carrot2', name: 'morfologik-speller', version: '2.1.7'
+	include group: 'org.carrot2', name: 'morfologik-stemming', version: '2.1.7'
+	include group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.9.3'
+	include group: 'edu.washington.cs.knowitall', name: 'opennlp-chunk-models', version: '1.5'
+	include group: 'edu.washington.cs.knowitall', name: 'opennlp-postag-models', version: '1.5'
+	include group: 'edu.washington.cs.knowitall', name: 'opennlp-tokenize-models', version: '1.5'
+	include group: 'edu.washington.cs.knowitall', name: 'opennlp-chunk-models', version: '1.5'
+	include group: 'com.carrotsearch', name: 'hppc', version: '0.9.0'
 }
 
 processResources {

@@ -87,7 +87,7 @@ public class InitHandler implements IInitializationHandler {
                 .addSectionSupplier(
                         (advancedChatScreen -> {
                             if (AdvancedChatCore.CREATE_SUGGESTER) {
-                                return new DefaultChatSuggestor(advancedChatScreen);
+                                return new DefaultChatSuggester(advancedChatScreen);
                             }
                             return null;
                         }));

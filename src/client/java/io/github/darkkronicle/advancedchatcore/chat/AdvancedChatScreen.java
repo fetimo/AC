@@ -15,7 +15,6 @@ import io.github.darkkronicle.advancedchatcore.config.ConfigStorage;
 import io.github.darkkronicle.advancedchatcore.config.gui.GuiConfigHandler;
 import io.github.darkkronicle.advancedchatcore.gui.IconButton;
 import io.github.darkkronicle.advancedchatcore.interfaces.AdvancedChatScreenSection;
-import io.github.darkkronicle.advancedchatcore.util.Color;
 import io.github.darkkronicle.advancedchatcore.util.RowList;
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
@@ -94,12 +93,9 @@ public class AdvancedChatScreen extends GuiBase {
         }
     }
 
-    private Color getColor() {
-        return ConfigStorage.ChatScreen.COLOR.config.get();
-    }
-
     public void resetCurrentMessage() {
         try {
+            assert this.client != null;
             this.messageHistorySize = this.client.inGameHud.getChatHud().getMessageHistory().size(); //dont ask
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,6 +152,7 @@ public class AdvancedChatScreen extends GuiBase {
             section.initGui();
         }
 
+        assert client != null;
         int originalX = client.getWindow().getScaledWidth() - 1;
         int y = client.getWindow().getScaledHeight() - 30;
         for (int i = 0; i < rightSideButtons.rowSize(); i++) {
@@ -227,6 +224,8 @@ public class AdvancedChatScreen extends GuiBase {
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        assert client != null;
+
         if (!passEvents) {
             for (AdvancedChatScreenSection section : sections) {
                 if (section.keyPressed(keyCode, scanCode, modifiers)) {
@@ -306,6 +305,7 @@ public class AdvancedChatScreen extends GuiBase {
         }
 
         // Send to hud to scroll
+        assert client != null;
         client.inGameHud.getChatHud().scroll((int) verticalAmount);
         return true;
     }
@@ -317,6 +317,7 @@ public class AdvancedChatScreen extends GuiBase {
                 return true;
             }
         }
+        assert client != null;
         ChatHud hud = client.inGameHud.getChatHud();
         if (hud.mouseClicked(mouseX, mouseY)) {
             return true;
@@ -363,6 +364,7 @@ public class AdvancedChatScreen extends GuiBase {
 
     public void setChatFromHistory(int i) {
         int targetIndex = this.messageHistorySize + i;
+        assert this.client != null;
         int maxIndex = this.client.inGameHud.getChatHud().getMessageHistory().size();
         targetIndex = MathHelper.clamp(targetIndex, 0, maxIndex);
         if (targetIndex != this.messageHistorySize) {
@@ -386,6 +388,7 @@ public class AdvancedChatScreen extends GuiBase {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float partialTicks) {
+        assert client != null;
         ChatHud hud = client.inGameHud.getChatHud();
         this.setFocused(this.chatField);
         this.chatField.setFocused(true);

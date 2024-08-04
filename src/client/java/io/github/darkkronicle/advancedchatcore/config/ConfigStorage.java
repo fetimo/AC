@@ -38,11 +38,8 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 // Used to store values into config.json
-@Environment(EnvType.CLIENT)
 public class ConfigStorage implements IConfigHandler {
 
     public static final String CONFIG_FILE_NAME = AdvancedChatCore.MOD_ID + ".json";
@@ -310,6 +307,22 @@ public class ConfigStorage implements IConfigHandler {
             }
         }
     }
+
+    /**
+     * Creates a {@link JsonObject} containing registry data
+     *
+     * @param registry registry data
+     * @return object with registry data
+     */
+    public static JsonObject saveRegistry(
+            AbstractRegistry<?, ? extends ConfigRegistryOption<?>> registry) {
+        JsonObject object = new JsonObject();
+        for (ConfigRegistryOption<?> option : registry.getAll()) {
+            object.add(option.getSaveString(), option.save());
+        }
+        return object;
+    }
+
 
     public static void saveFromFile() {
         File dir = FileUtils.getConfigDirectory().toPath().resolve("advancedchat").toFile();

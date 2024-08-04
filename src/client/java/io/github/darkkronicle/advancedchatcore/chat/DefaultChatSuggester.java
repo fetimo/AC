@@ -8,22 +8,16 @@
 package io.github.darkkronicle.advancedchatcore.chat;
 
 import io.github.darkkronicle.advancedchatcore.interfaces.AdvancedChatScreenSection;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatInputSuggestor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /** Handles the CommandSuggester for the chat */
-@Environment(EnvType.CLIENT)
-public class DefaultChatSuggestor extends AdvancedChatScreenSection {
+public class DefaultChatSuggester extends AdvancedChatScreenSection {
 
-    private static final Logger log = LogManager.getLogger(DefaultChatSuggestor.class);
     private ChatInputSuggestor commandSuggester;
 
-    public DefaultChatSuggestor(AdvancedChatScreen screen) {
+    public DefaultChatSuggester(AdvancedChatScreen screen) {
         super(screen);
     }
 
@@ -31,9 +25,6 @@ public class DefaultChatSuggestor extends AdvancedChatScreenSection {
     public void onChatFieldUpdate(String chatText, String text) {
         this.commandSuggester.setWindowActive(!text.equals(getScreen().getOriginalChatText()));
         this.commandSuggester.refresh();
-
-        log.info("chatText: " + chatText);
-        log.info("text: " + text);
     }
 
     @Override

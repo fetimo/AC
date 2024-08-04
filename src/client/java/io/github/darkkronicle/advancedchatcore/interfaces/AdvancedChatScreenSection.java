@@ -15,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 /**
  * A class meant to extend onto the {@link AdvancedChatScreen}
  *
- * <p>This is used so that many modules can add onto the screen without problems occuring.
+ * <p>This is used so that many modules can add onto the screen without problems occurring.
  */
 @Getter
 public abstract class AdvancedChatScreenSection implements Drawable {
@@ -27,7 +27,7 @@ public abstract class AdvancedChatScreenSection implements Drawable {
         this.screen = screen;
     }
 
-    /** Triggers when the gui is initiated */
+    /** Triggers when the GUI is initiated */
     public void initGui() {}
 
     /**
@@ -42,10 +42,10 @@ public abstract class AdvancedChatScreenSection implements Drawable {
     public void removed() {}
 
     /**
-     * Triggered when the chatfield text is pudated
+     * Triggered when the chatField text is updated
      *
      * @param chatText Updated value (?)
-     * @param text The text of the chatfield
+     * @param text The text of the chatField
      */
     public void onChatFieldUpdate(String chatText, String text) {}
 

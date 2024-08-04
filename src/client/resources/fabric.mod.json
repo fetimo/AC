@@ -20,6 +20,7 @@
   "entrypoints": {
     "client": [
       "io.github.darkkronicle.advancedchatcore.AdvancedChatCore",
+      "io.github.darkkronicle.advancedchatbox.AdvancedChatBox",
       "io.github.darkkronicle.advancedchathud.AdvancedChatHud",
       "io.github.darkkronicle.advancedchatfilters.AdvancedChatFilters",
       "io.github.darkkronicle.advancedchatlog.AdvancedChatLog"

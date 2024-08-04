@@ -227,7 +227,6 @@ public class AdvancedTextField extends TextFieldWidget {
 
     private void drawSelectionHighlight(int x1, int y1, int x2, int y2) {
         int x = getX();
-        int y = getY();
         int i;
         if (x1 < x2) {
             i = x1;
@@ -249,7 +248,6 @@ public class AdvancedTextField extends TextFieldWidget {
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         RenderSystem.setShader(GameRenderer::getPositionProgram);
         RenderSystem.setShaderColor(0.0f, 0.0f, 1.0f, 1.0f);
-//        RenderSystem.disableTexture();
         RenderSystem.enableColorLogicOp();
         RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
@@ -260,7 +258,6 @@ public class AdvancedTextField extends TextFieldWidget {
         tessellator.draw();
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.disableColorLogicOp();
-//        RenderSystem.enableTexture();
     }
 
     @Override
