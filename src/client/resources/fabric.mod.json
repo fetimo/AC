@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "advancedchat",
+  "version": "2.0.0",
+  "name": "AdvancedChat - AC Edition",
+  "description": "AdvancedChat features recombined",
+  "authors": [
+    "DarkKronicle",
+    "Fetimo"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/advancedchatcore",
+    "sources": "https://github.com/DarkKronicle/AdvancedChatCore",
+    "issues": "https://github.com/DarkKronicle/AdvancedChatCore/issues",
+    "discord": "https://discord.gg/WnaE3uZxDA"
+  },
+  "license": "MPL-v2",
+  "icon": "assets/advancedchatcore/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.darkkronicle.advancedchatcore.AdvancedChatCore",
+      "io.github.darkkronicle.advancedchatbox.AdvancedChatBox",
+      "io.github.darkkronicle.advancedchathud.AdvancedChatHud",
+      "io.github.darkkronicle.advancedchatfilters.AdvancedChatFilters",
+      "io.github.darkkronicle.advancedchatlog.AdvancedChatLog"
+    ],
+    "modmenu": [
+      "io.github.darkkronicle.advancedchatcore.config.gui.ModMenuImpl"
+    ]
+  },
+  "mixins": [
+    "advancedchatcore.mixins.json",
+    "advancedchathud.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric": "*",
+    "minecraft": ">=1.20.6",
+    "malilib": ">=0.19.0"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/WnaE3uZxDA"
+      }
+    }
+  }
+}
