@@ -18,6 +18,7 @@ public class MixinMessageIndicator {
             case "Modified" -> ConfigStorage.ChatScreen.MODIFIED.config.getColor().intValue;
             case "Filtered" -> ConfigStorage.ChatScreen.FILTERED.config.getColor().intValue;
             case "Not Secure" -> ConfigStorage.ChatScreen.NOT_SECURE.config.getColor().intValue;
+            case null -> null;
             default -> // And "System"
                     ConfigStorage.ChatScreen.SYSTEM.config.getColor().intValue;
         });

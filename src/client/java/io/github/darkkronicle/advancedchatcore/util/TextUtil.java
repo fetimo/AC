@@ -41,9 +41,6 @@ public class TextUtil {
         if (longerLength == 0) {
             return 1.0; /* both strings are zero length */
         }
-        /* // If you have Apache Commons Text, you can use it to calculate the edit distance:
-        LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
-        return (longerLength - levenshteinDistance.apply(longer, shorter)) / (double) longerLength; */
         return (longerLength - editDistance(longer, shorter)) / (double) longerLength;
     }
 
@@ -139,7 +136,7 @@ public class TextUtil {
      */
     public Text replaceStrings(Text input, Map<StringMatch, StringInsert> matches) {
         // If there's no matches nothing should get replaced.
-        if (matches.size() == 0) {
+        if (matches.isEmpty()) {
             return input;
         }
         // Sort the matches and then get a nice easy iterator for navigation
@@ -157,7 +154,7 @@ public class TextUtil {
         int totalchar = 0;
         boolean inMatch = false;
         for (RawText text : new TextBuilder().append(input).getTexts()) {
-            if (text.getString() == null || text.getString().length() <= 0) {
+            if (text.getString() == null || text.getString().isEmpty()) {
                 continue;
             }
             if (match == null) {
@@ -244,7 +241,7 @@ public class TextUtil {
         List<Text> siblings = input.getSiblings();
         siblings.add(0, MutableText.of(input.getContent()).fillStyle(input.getStyle()));
         for (Text text : siblings) {
-            if (text.getContent() == null || text.getString().length() <= 0) {
+            if (text.getContent() == null || text.getString().isEmpty()) {
                 continue;
             }
 

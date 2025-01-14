@@ -45,6 +45,7 @@ public class SharingScreen extends GuiBase {
     public void init() {
         int x = this.width / 2 - 150;
         int y = 50;
+        assert client != null;
         text = new GuiTextFieldGeneric(x, y, 300, 20, client.textRenderer);
         y -= 24;
         text.setMaxLength(12800);
@@ -95,7 +96,7 @@ public class SharingScreen extends GuiBase {
         @Override
         public void actionPerformedWithButton(ButtonBase button, int mouseButton) {
             try {
-                if (parent.text.getText().equals("")) {
+                if (parent.text.getText().isEmpty()) {
                     throw new NullPointerException("Message can't be blank!");
                 }
                 if (type == Type.IMPORT_FILTER) {

@@ -19,6 +19,7 @@ import net.minecraft.client.gui.screen.Screen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ChatWindowEditor extends GuiConfigsBase implements IClosable {
 
@@ -133,7 +134,7 @@ public class ChatWindowEditor extends GuiConfigsBase implements IClosable {
             this.activeKeybindButton.onKeyPressed(keyCode);
             return true;
         } else {
-            if (this.getListWidget().onKeyTyped(keyCode, scanCode, modifiers)) {
+            if (Objects.requireNonNull(this.getListWidget()).onKeyTyped(keyCode, scanCode, modifiers)) {
                 return true;
             }
 

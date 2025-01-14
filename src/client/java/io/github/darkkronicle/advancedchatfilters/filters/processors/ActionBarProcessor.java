@@ -36,7 +36,9 @@ public class ActionBarProcessor implements IMatchProcessor {
         public io.github.darkkronicle.Konstruct.parser.Result parse(ParseContext context, List<Node> input) {
             io.github.darkkronicle.Konstruct.parser.Result r1 = Function.parseArgument(context, input, 0);
             Text text = Text.literal(r1.getContent().getString());
-            MinecraftClient.getInstance().player.sendMessage(text, true);
+            if (MinecraftClient.getInstance().player != null) {
+                MinecraftClient.getInstance().player.sendMessage(text, true);
+            }
             return io.github.darkkronicle.Konstruct.parser.Result.success(new NullObject());
         }
 

@@ -78,7 +78,7 @@ public class ChatLogScreen extends GuiBase {
             if (SearchUtils.isMatch(
                     message.getDisplayText().getString(), search.getText(), findType)) {
                 for (int i = 0; i < message.getLineCount(); i++) {
-                    renderLines.addFirst(message.getLines().get(i));
+                    renderLines.add(0, message.getLines().get(i));
                 }
             }
         } catch (PatternSyntaxException e) {
@@ -90,6 +90,7 @@ public class ChatLogScreen extends GuiBase {
     public void initGui() {
         super.initGui();
         setLines(ChatLogData.getInstance().getMessages());
+        assert client != null;
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
         search = new GuiTextFieldGeneric((width / 2) - 70, 6, 141, 20, textRenderer);
@@ -120,7 +121,10 @@ public class ChatLogScreen extends GuiBase {
                 textRenderer,
                 (textFieldRunnable -> {
                     if (client.player != null) {
-                        client.player.sendMessage(Text.of(textFieldRunnable.getText()));
+                        client.player.sendMessage(
+                                Text.of(textFieldRunnable.getText()),
+                                true
+                        );
                     }
                     textFieldRunnable.setText("");
                 })
@@ -262,6 +266,7 @@ public class ChatLogScreen extends GuiBase {
     public void render(DrawContext context, int mouseX, int mouseY, float partialTicks) {
         super.render(context, mouseX, mouseY, partialTicks);
         updateScroll();
+        assert client != null;
         int height = client.getWindow().getScaledHeight();
         int width = client.getWindow().getScaledWidth();
         int lineHeight = textRenderer.fontHeight + 2;
@@ -353,6 +358,7 @@ public class ChatLogScreen extends GuiBase {
 
         // Offset y for scrolling. Used for partially obstructed lines.
         int y = -1 * ((int) currentScroll % lineHeight);
+        assert client != null;
         int height = client.getWindow().getScaledHeight();
         // Change the perspective of mouseY from where the text started.
         mouseY = height - mouseY - 40;
@@ -380,6 +386,7 @@ public class ChatLogScreen extends GuiBase {
 
         // Offset y for scrolling. Used for partially obstructed lines.
         int y = -1 * ((int) currentScroll % lineHeight);
+        assert client != null;
         int height = client.getWindow().getScaledHeight();
         // Change the perspective of mouseY from where the text started.
         mouseY = height - mouseY - 40;

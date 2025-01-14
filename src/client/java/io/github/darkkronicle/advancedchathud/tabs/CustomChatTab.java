@@ -26,7 +26,7 @@ import net.minecraft.text.Text;
 /** ChatTab that loads from {@link ChatTab}. Easy to customize. */
 public class CustomChatTab extends AbstractChatTab {
 
-    @Getter private List<Match> matches;
+    @Getter private final List<Match> matches;
 
     @Setter
     @Getter

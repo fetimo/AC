@@ -79,20 +79,7 @@ public class ChatBoxConfigStorage implements IConfigHandler {
         public static final SaveableConfig<ConfigString> HOVER_TEXT = SaveableConfig.fromConfig("hoverText",
                 new ConfigString(translate("hovertext"), "&7$1&b$2&7$3", translate("info.hovertext")));
 
-        // public static final SaveableConfig<ConfigBoolean>
-        // SUGGEST_CAPITAL =
-        // SaveableConfig.fromConfig(
-        // "suggest_capital",
-        // new ConfigBoolean(
-        // translate("suggestcapital"),
-        // true,
-        // translate("info.suggestcapital")
-        // )
-        // );
-
-        public static final ImmutableList<SaveableConfig<? extends IConfigBase>> OPTIONS = ImmutableList.of(HOVER_TEXT
-        // SUGGEST_CAPITAL
-        );
+        public static final ImmutableList<SaveableConfig<? extends IConfigBase>> OPTIONS = ImmutableList.of(HOVER_TEXT);
     }
 
     public static void loadFromFile() {
@@ -105,8 +92,8 @@ public class ChatBoxConfigStorage implements IConfigHandler {
             if (element != null && element.isJsonObject()) {
                 JsonObject root = element.getAsJsonObject();
 
-                ConfigStorage.readOptions(root, General.NAME, (List<SaveableConfig<?>>) General.OPTIONS);
-                ConfigStorage.readOptions(root, SpellChecker.NAME, (List<SaveableConfig<?>>) SpellChecker.OPTIONS);
+                ConfigStorage.readOptions(root, General.NAME, General.OPTIONS);
+                ConfigStorage.readOptions(root, SpellChecker.NAME, SpellChecker.OPTIONS);
 
                 ConfigStorage.applyRegistry(root.get(ChatFormatterRegistry.NAME), ChatFormatterRegistry.getInstance());
                 ConfigStorage.applyRegistry(root.get(ChatSuggestorRegistry.NAME), ChatSuggestorRegistry.getInstance());
@@ -122,8 +109,8 @@ public class ChatBoxConfigStorage implements IConfigHandler {
         if ((dir.exists() && dir.isDirectory()) || dir.mkdirs()) {
             JsonObject root = new JsonObject();
 
-            ConfigStorage.writeOptions(root, General.NAME, (List<SaveableConfig<?>>) General.OPTIONS);
-            ConfigStorage.writeOptions(root, SpellChecker.NAME, (List<SaveableConfig<?>>) SpellChecker.OPTIONS);
+            ConfigStorage.writeOptions(root, General.NAME, General.OPTIONS);
+            ConfigStorage.writeOptions(root, SpellChecker.NAME, SpellChecker.OPTIONS);
 
             root.add("config_version", new JsonPrimitive(CONFIG_VERSION));
 

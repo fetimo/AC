@@ -26,7 +26,6 @@ import io.github.darkkronicle.advancedchatcore.config.ConfigStorage;
 import io.github.darkkronicle.advancedchatcore.config.SaveableConfig;
 import io.github.darkkronicle.advancedchatcore.config.options.ConfigColor;
 import io.github.darkkronicle.advancedchatcore.util.Colors;
-import io.github.darkkronicle.advancedchatcore.util.EasingMethod;
 import io.github.darkkronicle.advancedchathud.AdvancedChatHud;
 import io.github.darkkronicle.advancedchathud.gui.WindowManager;
 import java.io.File;
@@ -306,7 +305,7 @@ public class HudConfigStorage implements IConfigHandler {
                 }
 
                 ConfigStorage.readOptions(
-                        root, General.NAME, (List<SaveableConfig<?>>) General.OPTIONS);
+                        root, General.NAME, General.OPTIONS);
 
                 int version = JsonUtils.getIntegerOrDefault(root, "configVersion", 0);
             }
@@ -321,7 +320,7 @@ public class HudConfigStorage implements IConfigHandler {
             JsonObject root = new JsonObject();
 
             ConfigStorage.writeOptions(
-                    root, General.NAME, (List<SaveableConfig<?>>) General.OPTIONS);
+                    root, General.NAME, General.OPTIONS);
 
             root.add("maintab", tabJson.save(MAIN_TAB));
 

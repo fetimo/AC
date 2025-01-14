@@ -7,8 +7,6 @@
  */
 package io.github.darkkronicle.advancedchatfilters.scripting.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

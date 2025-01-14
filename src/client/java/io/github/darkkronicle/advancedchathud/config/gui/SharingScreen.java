@@ -44,6 +44,7 @@ public class SharingScreen extends GuiBase {
     public void init() {
         int x = this.width / 2 - 150;
         int y = 50;
+        assert client != null;
         text = new GuiTextFieldGeneric(x, y, 300, 20, client.textRenderer);
         y -= 24;
         text.setMaxLength(12800);

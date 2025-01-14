@@ -18,7 +18,6 @@ import lombok.Getter;
 import lombok.Value;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
@@ -34,8 +33,8 @@ public class ParentFilter {
         public static FilterResult EMPTY = new FilterResult(Optional.empty(), Optional.empty());
     }
 
-    private List<IFilter> filters;
-    private List<ForwardFilter> forwardFilters;
+    private final List<IFilter> filters;
+    private final List<ForwardFilter> forwardFilters;
 
     @Getter
     private final FindType findType;
@@ -81,17 +80,10 @@ public class ParentFilter {
             Optional<Text> newtext = filter.filter(this, text, unfiltered, search);
             if (newtext.isPresent()) {
                 text = StyleFormatter.formatText(newtext.get());
-                if (color != null) {
-                    // Make sure forward filter gets the correct background color
-                    // TODO fix this
-                    // text.setBackground(color);
-                }
             }
             Optional<Color> c = filter.getColor();
             if (c.isPresent() && color == null) {
                 color = c.get();
-                // TODO fix this
-                // text.setBackground(color);
             }
         }
         boolean forward = true;

@@ -28,6 +28,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,9 +101,11 @@ public class AdvancedChatScreen extends GuiBase {
 
     public void resetCurrentMessage() {
         try {
-            this.messageHistorySize = this.client.inGameHud.getChatHud().getMessageHistory().size(); //dont ask
+            if (this.client != null) {
+                this.messageHistorySize = this.client.inGameHud.getChatHud().getMessageHistory().size(); //dont ask
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogManager.getLogger().error(e);
         }
     }
 
@@ -137,10 +140,10 @@ public class AdvancedChatScreen extends GuiBase {
             this.chatField.setMaxLength(256);
         }
         this.chatField.setDrawsBackground(false);
-        if (!this.originalChatText.equals("")) {
+        if (!this.originalChatText.isEmpty()) {
             this.chatField.setText(this.originalChatText);
         } else if (ConfigStorage.ChatScreen.PERSISTENT_TEXT.config.getBooleanValue()
-                && !last.equals("")) {
+                && !last.isEmpty()) {
             this.chatField.setText(last);
         }
         this.chatField.setChangedListener(this::onChatFieldUpdate);
@@ -156,6 +159,7 @@ public class AdvancedChatScreen extends GuiBase {
             section.initGui();
         }
 
+        assert client != null;
         int originalX = client.getWindow().getScaledWidth() - 1;
         int y = client.getWindow().getScaledHeight() - 30;
         for (int i = 0; i < rightSideButtons.rowSize(); i++) {
@@ -187,7 +191,6 @@ public class AdvancedChatScreen extends GuiBase {
         if (startHistory >= 0) {
             setChatFromHistory(-startHistory - 1);
         }
-
     }
 
     public void resize(MinecraftClient client, int width, int height) {
@@ -227,6 +230,8 @@ public class AdvancedChatScreen extends GuiBase {
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        assert client != null;
+
         if (!passEvents) {
             for (AdvancedChatScreenSection section : sections) {
                 if (section.keyPressed(keyCode, scanCode, modifiers)) {
@@ -306,6 +311,7 @@ public class AdvancedChatScreen extends GuiBase {
         }
 
         // Send to hud to scroll
+        assert client != null;
         client.inGameHud.getChatHud().scroll((int) verticalAmount);
         return true;
     }
@@ -317,6 +323,7 @@ public class AdvancedChatScreen extends GuiBase {
                 return true;
             }
         }
+        assert client != null;
         ChatHud hud = client.inGameHud.getChatHud();
         if (hud.mouseClicked(mouseX, mouseY)) {
             return true;
@@ -363,6 +370,7 @@ public class AdvancedChatScreen extends GuiBase {
 
     public void setChatFromHistory(int i) {
         int targetIndex = this.messageHistorySize + i;
+        assert this.client != null;
         int maxIndex = this.client.inGameHud.getChatHud().getMessageHistory().size();
         targetIndex = MathHelper.clamp(targetIndex, 0, maxIndex);
         if (targetIndex != this.messageHistorySize) {
@@ -386,6 +394,7 @@ public class AdvancedChatScreen extends GuiBase {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float partialTicks) {
+        assert client != null;
         ChatHud hud = client.inGameHud.getChatHud();
         this.setFocused(this.chatField);
         this.chatField.setFocused(true);
@@ -397,13 +406,16 @@ public class AdvancedChatScreen extends GuiBase {
         Style style = hud.getTextStyleAt(mouseX, mouseY);
         if (style != null && style.getHoverEvent() != null) {
             context.drawHoverEvent(textRenderer, style, mouseX, mouseY);
-            //this.renderTextHoverEffect(context, style, mouseX, mouseY);
         }
     }
 
+    // TODO: Look for @Overrides with no usages that might need to be updated.
     @Override
     protected void drawScreenBackground(int mouseX, int mouseY) {
+    }
 
+    @Override
+    protected void drawScreenBackground(DrawContext drawContext, int mouseX, int mouseY) {
     }
 
     private void setText(String text) {

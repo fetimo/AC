@@ -59,7 +59,7 @@ public class MatchReplaceRegistry
 
     public static class MatchReplaceOption implements ConfigRegistryOption<IMatchReplace> {
 
-        private IMatchReplace replace;
+        private final IMatchReplace replace;
         private final Supplier<IMatchReplace> repl;
         private final String saveString;
         private final String translation;

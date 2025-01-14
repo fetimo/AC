@@ -81,7 +81,7 @@ public class MatchProcessorRegistry
             implements Translatable, ConfigRegistryOption<IMatchProcessor> {
 
         private final Supplier<IMatchProcessor> processor;
-        private IMatchProcessor process;
+        private final IMatchProcessor process;
         private final String saveString;
         private final String translation;
         private final MatchProcessorRegistry registry;

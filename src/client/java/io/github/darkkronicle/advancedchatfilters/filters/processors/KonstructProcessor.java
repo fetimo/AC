@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 
 public class KonstructProcessor implements IMatchProcessor, IJsonApplier, IScreenSupplier {
 
-    private SaveableConfig<ConfigString> content = SaveableConfig.fromConfig("nodeData",
+    private final SaveableConfig<ConfigString> content = SaveableConfig.fromConfig("nodeData",
             new ConfigString("advancedchatfilters.config.konstruct.nodedata", "", "advancedchatfilters.config.konstruct.nodedata"));
 
     private Node node;
@@ -33,7 +33,9 @@ public class KonstructProcessor implements IMatchProcessor, IJsonApplier, IScree
     @Override
     public Result processMatches(Text text, @Nullable Text unfiltered, @Nullable SearchResult search) {
         if (node != null) {
-            node.parse(FiltersHandler.getInstance().createTextContext(text, search));
+            if (search != null) {
+                node.parse(FiltersHandler.getInstance().createTextContext(text, search));
+            }
         }
         return Result.PROCESSED;
     }

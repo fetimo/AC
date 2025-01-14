@@ -16,12 +16,12 @@ import io.github.darkkronicle.advancedchatcore.util.StyleFormatter;
 import io.github.darkkronicle.advancedchatcore.util.TextBuilder;
 import io.github.darkkronicle.advancedchatcore.util.TextUtil;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -47,7 +47,7 @@ public class AdvancedTextField extends TextFieldWidget {
 
     private int focusedTicks = 0;
     private List<Text> renderLines = new ArrayList<>();
-    private TextRenderer textRenderer;
+    private final TextRenderer textRenderer;
     private String suggestion = null;
     private int selectionEnd;
     private int selectionStart;
@@ -146,10 +146,13 @@ public class AdvancedTextField extends TextFieldWidget {
 
     @Override
     public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-        int color = 0xE0E0E0;
+
+//        int color = 0xE0E0E0;
+        int color = 0xFFFFFF;
         int cursor = getCursor();
         int cursorRow = renderLines.size() - 1;
-        boolean renderCursor = this.isFocused() && focusedTicks / 6 % 2 == 0;
+//        boolean renderCursor = this.isFocused() && focusedTicks / 6 % 2 == 0;
+        boolean renderCursor = true;
         int renderY = getY() - (renderLines.size() - 1) * (textRenderer.fontHeight + 2);
         int endX = 0;
         int charCount = 0;
@@ -212,7 +215,7 @@ public class AdvancedTextField extends TextFieldWidget {
         if (renderCursor) {
             int cursorY = y - (renderLines.size() - 1 - cursorRow) * (textRenderer.fontHeight + 2);
             if (cursorAtEnd) {
-                context.fill(cursorX, cursorY - 1, cursorX + 1, cursorY + 1 + this.textRenderer.fontHeight, -3092272);
+                context.fill(cursorX, cursorY - 1, cursorX + 1, cursorY + 1 + this.textRenderer.fontHeight, 0x000000);
             } else {
                 context.drawTextWithShadow(textRenderer, "_", x + cursorX, cursorY, color);
             }
@@ -240,7 +243,8 @@ public class AdvancedTextField extends TextFieldWidget {
             x1 = x + this.width;
         }
         Tessellator tessellator = Tessellator.getInstance();
-        RenderSystem.setShader(GameRenderer::getPositionProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION);
+//        RenderSystem.setShader(GameRenderer::getPositionProgram);
         RenderSystem.setShaderColor(0.0f, 0.0f, 1.0f, 1.0f);
         RenderSystem.enableColorLogicOp();
         RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
@@ -249,7 +253,6 @@ public class AdvancedTextField extends TextFieldWidget {
         bufferBuilder.vertex(x2, y2, 0);
         bufferBuilder.vertex(x2, y1, 0);
         bufferBuilder.vertex(x1, y1, 0);
-//        tessellator();
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.disableColorLogicOp();
     }

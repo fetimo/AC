@@ -12,6 +12,7 @@ import fi.dy.masa.malilib.gui.widgets.WidgetListEntryBase;
 import io.github.darkkronicle.advancedchatcore.config.gui.GuiConfig;
 import io.github.darkkronicle.advancedchatcore.config.gui.GuiConfigHandler;
 import java.util.List;
+import java.util.Objects;
 
 /** GUI list base to work in a configuration screen */
 public abstract class ConfigGuiListBase<
@@ -40,12 +41,12 @@ public abstract class ConfigGuiListBase<
         int y = 26;
 
         y += (22 * GuiConfig.addTabButtons(this, 10, y));
-        if (GuiConfig.TAB.getChildren() != null && GuiConfig.TAB.getChildren().size() > 0) {
+        if (GuiConfig.TAB.getChildren() != null && !GuiConfig.TAB.getChildren().isEmpty()) {
             y += (22 * GuiConfig.addAllChildrenButtons(this, GuiConfig.TAB, 10, y));
         }
         this.setListPosition(this.getListX(), y);
         this.reCreateListWidget();
-        this.getListWidget().refreshEntries();
+        Objects.requireNonNull(this.getListWidget()).refreshEntries();
 
         y += 24;
 

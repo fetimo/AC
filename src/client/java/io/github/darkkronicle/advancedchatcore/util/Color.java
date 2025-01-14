@@ -13,21 +13,21 @@ import lombok.Value;
 import lombok.With;
 import lombok.experimental.Accessors;
 
+@Getter
 @Value
 @Accessors(fluent = true)
 public class Color {
 
-    @Getter int red;
+    int red;
 
-    @Getter int green;
+    int green;
 
-    @Getter int blue;
+    int blue;
 
-    @Getter
     @With(AccessLevel.PUBLIC)
     int alpha;
 
-    @Getter int color;
+    int color;
 
     public Color(int color) {
         this.color = color;

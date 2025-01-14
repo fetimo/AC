@@ -33,15 +33,15 @@ import net.minecraft.text.Text;
 import org.apache.logging.log4j.Level;
 
 /** Main chat tab that manages other chat tabs. */
+@Getter
 public class MainChatTab extends AbstractChatTab {
 
-    @Getter private ArrayList<AbstractChatTab> allChatTabs = new ArrayList<>();
+    private ArrayList<AbstractChatTab> allChatTabs = new ArrayList<>();
 
-    @Getter private ArrayList<CustomChatTab> customChatTabs = new ArrayList<>();
+    private ArrayList<CustomChatTab> customChatTabs = new ArrayList<>();
 
     public static boolean LOAD_ALL_JSON = false;
 
-    @Getter
     private NodeProcessor processor = null;
 
     public MainChatTab() {
@@ -123,7 +123,7 @@ public class MainChatTab extends AbstractChatTab {
         });
 
         Optional<List<Path>> files = FileUtil.getFilesWithExtensionCaught(konstructDir, ".knst");
-        if (files.isPresent() && files.get().size() != 0) {
+        if (files.isPresent() && !files.get().isEmpty()) {
             this.loadKonstruct(files.get());
         }
 

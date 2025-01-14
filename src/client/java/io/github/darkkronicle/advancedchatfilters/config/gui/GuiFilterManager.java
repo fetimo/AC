@@ -15,11 +15,10 @@ import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.gui.interfaces.ISelectionListener;
 import fi.dy.masa.malilib.util.StringUtils;
 import io.github.darkkronicle.advancedchatcore.config.gui.GuiConfig;
-import io.github.darkkronicle.advancedchatcore.config.gui.GuiConfigHandler;
 import io.github.darkkronicle.advancedchatfilters.config.Filter;
 import io.github.darkkronicle.advancedchatfilters.config.FiltersConfigStorage;
 import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
 
 public class GuiFilterManager extends GuiListBase<Filter, WidgetFilterEntry, WidgetListFilters>
         implements ISelectionListener<Filter> {
@@ -55,7 +54,7 @@ public class GuiFilterManager extends GuiListBase<Filter, WidgetFilterEntry, Wid
 
         y = 68 + (rows - 3) * 22;
 
-        this.getListWidget().refreshEntries();
+        Objects.requireNonNull(this.getListWidget()).refreshEntries();
 
         y += 24;
         x = this.width - 10;
@@ -86,7 +85,7 @@ public class GuiFilterManager extends GuiListBase<Filter, WidgetFilterEntry, Wid
             if (this.type == Type.ADD_FILTER) {
                 FiltersConfigStorage.FILTERS.add(Filter.getRandomFilter());
                 Collections.sort(FiltersConfigStorage.FILTERS);
-                this.gui.getListWidget().refreshEntries();
+                Objects.requireNonNull(this.gui.getListWidget()).refreshEntries();
             } else if (this.type == Type.IMPORT) {
                 GuiBase.openGui(new SharingScreen(null, gui));
             }

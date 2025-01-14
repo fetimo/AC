@@ -171,7 +171,7 @@ public class CommandColorer implements IMessageFormatter, IJsonApplier, IScreenS
         JsonObject obj = new JsonObject();
         // Compiler is weird and casting is required
         ConfigStorage.writeOptions(obj, CommandColorerStorage.NAME,
-                (List<SaveableConfig<?>>) CommandColorerStorage.OPTIONS);
+                CommandColorerStorage.OPTIONS);
         return obj;
     }
 
@@ -183,7 +183,7 @@ public class CommandColorer implements IMessageFormatter, IJsonApplier, IScreenS
         JsonObject obj = element.getAsJsonObject();
         // Compiler is weird and casting is required
         ConfigStorage.readOptions(obj, CommandColorerStorage.NAME,
-                (List<SaveableConfig<?>>) CommandColorerStorage.OPTIONS);
+                CommandColorerStorage.OPTIONS);
     }
 
     @Override

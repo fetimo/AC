@@ -11,13 +11,13 @@ import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.util.StringUtils;
-import io.github.darkkronicle.advancedchatcore.config.gui.GuiConfigHandler;
 import io.github.darkkronicle.advancedchatcore.gui.ConfigGuiListBase;
 import io.github.darkkronicle.advancedchatcore.gui.buttons.NamedSimpleButton;
 import io.github.darkkronicle.advancedchathud.AdvancedChatHud;
 import io.github.darkkronicle.advancedchathud.config.ChatTab;
 import io.github.darkkronicle.advancedchathud.config.HudConfigStorage;
-import java.util.List;
+
+import java.util.Objects;
 
 public class GuiTabManager extends ConfigGuiListBase<ChatTab, WidgetTabEntry, WidgetListTabs> {
 
@@ -38,7 +38,7 @@ public class GuiTabManager extends ConfigGuiListBase<ChatTab, WidgetTabEntry, Wi
         y -= 48;
         x -= this.addButton(x, y, "advancedchathud.gui.button.addtab", (button, mouseButton) -> {
             HudConfigStorage.TABS.add(new ChatTab());
-            this.getListWidget().refreshEntries();
+            Objects.requireNonNull(this.getListWidget()).refreshEntries();
         }) + 2;
         x -= this.addButton(x, y, "advancedchathud.gui.button.import", (button, mouseButton) ->
                 GuiBase.openGui(new SharingScreen(null, this))

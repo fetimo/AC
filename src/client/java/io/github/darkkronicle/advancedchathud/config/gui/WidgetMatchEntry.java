@@ -26,14 +26,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 
 @Environment(EnvType.CLIENT)
 public class WidgetMatchEntry extends WidgetConfigListEntry<Match> {
 
-    private TextFieldWrapper<GuiTextFieldGeneric> name;
-    private List<TextFieldWrapper<GuiTextFieldGeneric>> texts;
-    private ConfigOptionList findType =
+    private final TextFieldWrapper<GuiTextFieldGeneric> name;
+    private final List<TextFieldWrapper<GuiTextFieldGeneric>> texts;
+    private final ConfigOptionList findType =
             new ConfigOptionList(
                     "advancedchathud.config.match.findtype",
                     FindType.LITERAL,
@@ -104,7 +103,9 @@ public class WidgetMatchEntry extends WidgetConfigListEntry<Match> {
     }
 
     public void save() {
-        entry.setPattern(name.getTextField().getText());
+        if (entry != null) {
+            entry.setPattern(name.getTextField().getText());
+        }
     }
 
     private static class SaveListener implements ITextFieldListener<GuiTextFieldGeneric> {
@@ -117,7 +118,9 @@ public class WidgetMatchEntry extends WidgetConfigListEntry<Match> {
 
         @Override
         public boolean onTextChange(GuiTextFieldGeneric textField) {
-            parent.entry.setPattern(textField.getText());
+            if (parent.entry != null) {
+                parent.entry.setPattern(textField.getText());
+            }
             return false;
         }
     }

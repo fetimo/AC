@@ -66,7 +66,7 @@ public class InitHandler implements IInitializationHandler {
             if (ConfigStorage.General.FILTER_PROFANITY.config.getBooleanValue()) {
                 List<StringMatch> profanity =
                         ProfanityUtil.getInstance().getBadWords(text.getString(), (float) ConfigStorage.General.PROFANITY_ABOVE.config.getDoubleValue(), ConfigStorage.General.PROFANITY_ON_WORD_BOUNDARIES.config.getBooleanValue());
-                if (profanity.size() == 0) {
+                if (profanity.isEmpty()) {
                     return Optional.empty();
                 }
                 Map<StringMatch, StringInsert> insertions =
@@ -126,7 +126,7 @@ public class InitHandler implements IInitializationHandler {
             client.currentScreen = new AdvancedChatScreen(true);
             client.mouse.unlockCursor();
             client.currentScreen.init(client, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight());
-            client.skipGameRender = false;;
+            client.skipGameRender = false;
             client.updateWindowTitle();
             return true;
         });

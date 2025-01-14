@@ -7,37 +7,27 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
 import java.util.function.Consumer;
 
+@Setter
+@Getter
 public class IconButton extends CleanButton {
 
-    @Setter
-    @Getter
     private int padding;
 
-    @Setter
-    @Getter
     private Identifier icon;
 
-    @Setter
-    @Getter
     private int iconWidth;
 
-    @Setter
-    @Getter
     private int iconHeight;
 
-    @Setter
-    @Getter
     private Consumer<IconButton> onClick;
 
-    @Getter
-    @Setter
     private String onHover;
 
     public IconButton(int x, int y, int sideLength, int iconLength, Identifier icon, Consumer<IconButton> mouseClick) {
@@ -73,7 +63,9 @@ public class IconButton extends CleanButton {
 
         RenderUtils.color(1, 1, 1, 1);
         RenderUtils.bindTexture(icon);
-        context.drawTexture(icon, x + padding, y + padding, width - (padding * 2), height - (padding * 2),
+        context.drawTexture(
+                RenderLayer::getGuiTextured,
+                icon, x + padding, y + padding, width - (padding * 2), height - (padding * 2),
                 0, 0, iconWidth, iconHeight, iconWidth, iconHeight);
 
         if (hovered && onHover != null) {

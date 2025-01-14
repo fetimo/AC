@@ -16,6 +16,8 @@ import io.github.darkkronicle.advancedchatcore.config.gui.widgets.WidgetListRegi
 import io.github.darkkronicle.advancedchatcore.config.gui.widgets.WidgetRegistryOptionEntry;
 import io.github.darkkronicle.advancedchatfilters.registry.MatchProcessorRegistry;
 
+import java.util.Objects;
+
 public class GuiFilterProcessors
         extends GuiListBase<
                 MatchProcessorRegistry.MatchProcessorOption,
@@ -59,7 +61,7 @@ public class GuiFilterProcessors
         x = 10;
 
         this.addButton(x, y, ButtonListener.Type.BACK, false);
-        this.getListWidget().refreshEntries();
+        Objects.requireNonNull(this.getListWidget()).refreshEntries();
     }
 
     protected int addButton(int x, int y, ButtonListener.Type type, boolean rightAlign) {

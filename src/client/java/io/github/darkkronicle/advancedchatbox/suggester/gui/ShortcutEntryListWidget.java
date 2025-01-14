@@ -22,14 +22,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 
 @Environment(EnvType.CLIENT)
 public class ShortcutEntryListWidget extends WidgetConfigListEntry<ShortcutSuggestor.Shortcut> {
 
-    private TextFieldWrapper<GuiTextFieldGeneric> name;
-    private TextFieldWrapper<GuiTextFieldGeneric> replace;
-    private List<TextFieldWrapper<GuiTextFieldGeneric>> texts = new ArrayList<>();
+    private final List<TextFieldWrapper<GuiTextFieldGeneric>> texts = new ArrayList<>();
 
     public ShortcutEntryListWidget(int x, int y, int width, int height, boolean isOdd, ShortcutSuggestor.Shortcut entry,
             int listIndex, ShortcutListWidget parent) {
@@ -48,7 +45,7 @@ public class ShortcutEntryListWidget extends WidgetConfigListEntry<ShortcutSugge
                 MinecraftClient.getInstance().textRenderer);
         replaceField.setMaxLength(512);
         replaceField.setText(entry.getReplace());
-        replace = new TextFieldWrapper<>(replaceField, new SaveListener(this, false));
+        TextFieldWrapper<GuiTextFieldGeneric> replace = new TextFieldWrapper<>(replaceField, new SaveListener(this, false));
         parent.addTextField(replace);
 
         pos -= replaceWidth + 1;
@@ -56,7 +53,7 @@ public class ShortcutEntryListWidget extends WidgetConfigListEntry<ShortcutSugge
                 new GuiTextFieldGeneric(pos - nameWidth, y, nameWidth, 20, MinecraftClient.getInstance().textRenderer);
         nameField.setMaxLength(512);
         nameField.setText(entry.getName());
-        name = new TextFieldWrapper<>(nameField, new SaveListener(this, true));
+        TextFieldWrapper<GuiTextFieldGeneric> name = new TextFieldWrapper<>(nameField, new SaveListener(this, true));
         texts.add(name);
         texts.add(replace);
         parent.addTextField(name);
@@ -78,6 +75,9 @@ public class ShortcutEntryListWidget extends WidgetConfigListEntry<ShortcutSugge
 
         @Override
         public boolean onTextChange(GuiTextFieldGeneric textField) {
+            if (parent.entry == null) {
+                return false;
+            }
             if (name) {
                 parent.entry.setName(textField.getText());
             } else {

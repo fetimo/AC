@@ -25,6 +25,8 @@ import io.github.darkkronicle.advancedchathud.AdvancedChatHud;
 import io.github.darkkronicle.advancedchathud.config.ChatTab;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import net.minecraft.client.gui.screen.Screen;
 
 public class GuiTabEditor extends GuiConfigsBase implements IClosable {
@@ -115,7 +117,7 @@ public class GuiTabEditor extends GuiConfigsBase implements IClosable {
             this.activeKeybindButton.onKeyPressed(keyCode);
             return true;
         } else {
-            if (this.getListWidget().onKeyTyped(keyCode, scanCode, modifiers)) {
+            if (Objects.requireNonNull(this.getListWidget()).onKeyTyped(keyCode, scanCode, modifiers)) {
                 return true;
             }
 

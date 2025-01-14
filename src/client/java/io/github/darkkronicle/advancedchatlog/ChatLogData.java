@@ -24,6 +24,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import org.apache.logging.log4j.LogManager;
 
 @Environment(EnvType.CLIENT)
 public class ChatLogData implements IChatMessageProcessor {
@@ -32,7 +33,7 @@ public class ChatLogData implements IChatMessageProcessor {
     @Getter
     private static boolean loading = false;
 
-    @Getter private List<LogChatMessage> messages = new ArrayList<>();
+    @Getter private final List<LogChatMessage> messages = new ArrayList<>();
 
     private ChatLogData() {}
 
@@ -96,7 +97,7 @@ public class ChatLogData implements IChatMessageProcessor {
             try {
                 array.add(serializer.save(message));
             } catch (Exception e) {
-                e.printStackTrace();
+                LogManager.getLogger().error(e);
             }
         }
         return array;
@@ -115,7 +116,7 @@ public class ChatLogData implements IChatMessageProcessor {
             try {
                 messages.add(serializer.load(e.getAsJsonObject()));
             } catch (Exception err) {
-                err.printStackTrace();
+                LogManager.getLogger().error(err);
             }
         }
         for (int i = Math.min(ChatLogConfigStorage.General.RELOAD_LINES.config.getIntegerValue() - 1, messages.size() - 1); i >= 0; i--) {

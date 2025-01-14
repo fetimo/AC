@@ -31,7 +31,6 @@ import io.github.darkkronicle.advancedchatfilters.filters.ReplaceFilter;
 import io.github.darkkronicle.advancedchatfilters.registry.MatchReplaceRegistry;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -142,6 +141,7 @@ public class GuiFilterEditor extends GuiBase {
     }
 
     private void createButtons(int x, int y) {
+        assert client != null;
         int windowWidth = client.getWindow().getScaledWidth();
         int defaultX = x;
 

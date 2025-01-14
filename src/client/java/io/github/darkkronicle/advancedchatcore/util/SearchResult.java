@@ -21,20 +21,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /** An object that holds information about a search. */
+@Getter
 @Environment(EnvType.CLIENT)
 public class SearchResult {
 
     /** All the {@link StringMatch} that were found in the input */
-    @Getter private final List<StringMatch> matches;
+    private final List<StringMatch> matches;
 
     /** The finder used to find matches */
-    @Getter private final IFinder finder;
+    private final IFinder finder;
 
     /** The input string */
-    @Getter private final String input;
+    private final String input;
 
     /** The condition search */
-    @Getter private final String search;
+    private final String search;
 
     /**
      * Constructs a search result based off of found information.

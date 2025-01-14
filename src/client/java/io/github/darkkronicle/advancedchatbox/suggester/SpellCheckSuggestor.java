@@ -26,6 +26,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import org.apache.logging.log4j.LogManager;
 import org.languagetool.JLanguageTool;
 import org.languagetool.ResultCache;
 import org.languagetool.UserConfig;
@@ -50,7 +51,7 @@ public class SpellCheckSuggestor implements IMessageSuggestor {
             // Set it up. Make it so it doesn't freeze later.
             lt.check("a");
         } catch (IOException e) {
-            e.printStackTrace();
+            LogManager.getLogger().error(e);
         }
     }
 
@@ -66,7 +67,7 @@ public class SpellCheckSuggestor implements IMessageSuggestor {
                 suggestions.add(new AdvancedSuggestions(range, convertSuggestions(match, range)));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogManager.getLogger().error(e);
             return Optional.empty();
         }
         return Optional.of(suggestions);

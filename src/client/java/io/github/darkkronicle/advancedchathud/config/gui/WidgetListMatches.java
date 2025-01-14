@@ -9,7 +9,6 @@ package io.github.darkkronicle.advancedchathud.config.gui;
 
 import fi.dy.masa.malilib.gui.interfaces.ISelectionListener;
 import io.github.darkkronicle.advancedchatcore.gui.WidgetConfigList;
-import io.github.darkkronicle.advancedchatcore.gui.WidgetConfigListEntry;
 import io.github.darkkronicle.advancedchathud.config.ChatTab;
 import io.github.darkkronicle.advancedchathud.config.Match;
 import java.util.Collection;

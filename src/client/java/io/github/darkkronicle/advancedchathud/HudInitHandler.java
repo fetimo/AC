@@ -10,7 +10,6 @@ package io.github.darkkronicle.advancedchathud;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.RenderEventHandler;
 import fi.dy.masa.malilib.interfaces.IInitializationHandler;
-import fi.dy.masa.malilib.util.StringUtils;
 import io.github.darkkronicle.advancedchatcore.AdvancedChatCore;
 import io.github.darkkronicle.advancedchatcore.chat.ChatHistory;
 import io.github.darkkronicle.advancedchatcore.chat.ChatScreenSectionHolder;
@@ -21,10 +20,8 @@ import io.github.darkkronicle.advancedchathud.gui.HudSection;
 import io.github.darkkronicle.advancedchathud.gui.WindowManager;
 import io.github.darkkronicle.advancedchathud.itf.IChatHud;
 import io.github.darkkronicle.advancedchathud.tabs.MainChatTab;
-import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.Screen;
 
 @Environment(EnvType.CLIENT)
 public class HudInitHandler implements IInitializationHandler {

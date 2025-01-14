@@ -18,6 +18,7 @@ import net.minecraft.util.Util;
 
 import java.util.List;
 
+@Getter
 public class AdvancedChatKonstruct {
 
     private static final AdvancedChatKonstruct INSTANCE = new AdvancedChatKonstruct();
@@ -26,7 +27,6 @@ public class AdvancedChatKonstruct {
         return INSTANCE;
     }
 
-    @Getter
     private NodeProcessor processor;
 
     private AdvancedChatKonstruct() {

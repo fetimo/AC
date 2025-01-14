@@ -20,7 +20,7 @@ public class AdvancedChatHud implements ClientModInitializer {
 
     public static final String MOD_ID = "advancedchathud";
     public static MainChatTab MAIN_CHAT_TAB;
-    public static Logger LOGGER = LogManager.getLogger("AdvancedChatHUD");
+    public static final Logger LOGGER = LogManager.getLogger("AdvancedChatHUD");
 
     @Override
     public void onInitializeClient() {

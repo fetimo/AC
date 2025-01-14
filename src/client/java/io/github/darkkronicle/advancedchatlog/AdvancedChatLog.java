@@ -48,15 +48,6 @@ public class AdvancedChatLog implements ClientModInitializer {
         LogManager.getLogger("chat");
         LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false);
 
-//        FileAppender fileAppender =  FileAppender
-//                .newBuilder()
-//                .withFileName("chatlogs/latest.log")
-//                .setName("chatlog")
-//                .withBufferSize(100000)
-//                .withImmediateFlush(true)
-//                .withAppend(true)
-//                .build();
-//        fileAppender.start();
         RollingRandomAccessFileAppender rolling = RollingRandomAccessFileAppender
                 .newBuilder()
                 .setName("chatlogFile")

@@ -31,8 +31,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -48,34 +48,51 @@ public class ChatWindow {
     private double scrollEnd = 0;
 
     private long lastScroll = 0;
-    private int scrollDuration = 200;
 
-    @Getter @Setter private double yPercent;
+    @Getter
+    @Setter
+    private double yPercent;
 
-    @Getter @Setter private double xPercent;
+    @Getter
+    @Setter
+    private double xPercent;
 
-    @Getter @Setter private double widthPercent;
+    @Getter
+    @Setter
+    private double widthPercent;
 
-    @Getter @Setter private double heightPercent;
+    @Getter
+    @Setter
+    private double heightPercent;
 
-    @Getter @Setter private boolean renderRight = false;
+    @Getter
+    @Setter
+    private boolean renderRight = false;
 
-    @Getter @Setter private boolean minimalist = false;
+    @Getter
+    @Setter
+    private boolean minimalist = false;
 
-    @Getter @Setter private boolean renderTopFirst = false;
+    @Getter
+    @Setter
+    private boolean renderTopFirst = false;
 
     private final MinecraftClient client;
 
-    @Setter @Getter
+    @Setter
+    @Getter
     private HudConfigStorage.Visibility visibility =
             (HudConfigStorage.Visibility)
                     HudConfigStorage.General.VISIBILITY.config.getOptionListValue();
 
     private List<ChatMessage> lines;
 
-    @Getter @Setter private boolean selected;
+    @Getter
+    @Setter
+    private boolean selected;
 
-    @Getter private AbstractChatTab tab;
+    @Getter
+    private AbstractChatTab tab;
 
     private static final Identifier X_ICON =
             Identifier.of(AdvancedChatHud.MOD_ID, "textures/gui/chatwindow/x_icon.png");
@@ -185,7 +202,7 @@ public class ChatWindow {
 
     public void updateScroll() {
         long time = Util.getMeasuringTimeMs();
-        scrollDuration = 300;
+        int scrollDuration = 300;
         scrolledHeight = scrollStart + (
                 (scrollEnd - scrollStart) * (1 - ((ConfigStorage.Easing) HudConfigStorage.General.SCROLL_TYPE.config.getOptionListValue()).apply(
                         1 - ((float) (time - lastScroll)) / HudConfigStorage.General.SCROLL_TIME.config.getIntegerValue()
@@ -239,6 +256,7 @@ public class ChatWindow {
     }
 
     private int headOffset() {
+//        Bug is not affected by this
         return HudConfigStorage.General.CHAT_HEADS.config.getBooleanValue() ? 10 : 0;
     }
 
@@ -253,9 +271,8 @@ public class ChatWindow {
     private int getPaddedLeftX() {
         return (getLeftX()
                 + (int)
-                        Math.ceil(
-                                HudConfigStorage.General.LEFT_PAD.config.getIntegerValue()
-                                        + (renderRight ? 0 : headOffset())));
+                (double) (HudConfigStorage.General.LEFT_PAD.config.getIntegerValue()
+                        + (renderRight ? 0 : headOffset())));
     }
 
     private double getScale() {
@@ -338,7 +355,7 @@ public class ChatWindow {
         LimitedInteger y =
                 new LimitedInteger(
                         getScaledHeight() - HudConfigStorage.General.TOP_PAD.config.getIntegerValue() + (HudConfigStorage.General.MESSAGE_SPACE.config.getIntegerValue() + HudConfigStorage.General.LINE_SPACE.config.getIntegerValue() * (renderTopFirst ? 2 : 1)),
-                        renderTopFirst ? HudConfigStorage.General.TOP_PAD.config.getIntegerValue() + HudConfigStorage.General.LINE_SPACE.config.getIntegerValue(): HudConfigStorage.General.BOTTOM_PAD.config.getIntegerValue());
+                        renderTopFirst ? HudConfigStorage.General.TOP_PAD.config.getIntegerValue() + HudConfigStorage.General.LINE_SPACE.config.getIntegerValue() : HudConfigStorage.General.BOTTOM_PAD.config.getIntegerValue());
 
         double scale = client.getWindow().getScaleFactor();
         ScissorUtil.applyScissorBox(
@@ -478,13 +495,14 @@ public class ChatWindow {
             RenderUtils.color(1, 1, 1, 1);
             RenderUtils.bindTexture(X_ICON);
             context.drawTexture(
+                    RenderLayer::getGuiTextured,
                     X_ICON,
                     rightX - scaledBar + 1,
                     getActualY(newY - 1),
                     scaledBar - 2,
                     scaledBar - 2,
-                    0,
-                    0,
+                    8,
+                    8,
                     32,
                     32,
                     32,
@@ -494,13 +512,14 @@ public class ChatWindow {
             RenderUtils.color(1, 1, 1, 1);
             RenderUtils.bindTexture(RESIZE_ICON);
             context.drawTexture(
+                    RenderLayer::getGuiTextured,
                     RESIZE_ICON,
                     rightX - scaledBar * 2 + 2,
                     getActualY(newY - 1),
                     scaledBar - 2,
                     scaledBar - 2,
-                    0,
-                    0,
+                    16,
+                    16,
                     32,
                     32,
                     32,
@@ -509,13 +528,14 @@ public class ChatWindow {
             // Visibility
             RenderUtils.bindTexture(visibility.getTexture());
             context.drawTexture(
+                    RenderLayer::getGuiTextured,
                     visibility.getTexture(),
                     rightX - scaledBar * 3 + 3,
                     getActualY(newY - 1),
                     scaledBar - 2,
                     scaledBar - 2,
-                    0,
-                    0,
+                    16,
+                    16,
                     32,
                     32,
                     32,
@@ -597,22 +617,14 @@ public class ChatWindow {
         float applied = 1;
         if (!focused) {
             // Find fade percentage
-            int fadeStart = HudConfigStorage.General.FADE_START.config.getIntegerValue();
-            int fadeStop = fadeStart + HudConfigStorage.General.FADE_TIME.config.getIntegerValue();
-            int timeAlive = ticks - line.getParent().getCreationTick();
-            float percent =
-                    (float)
-                            Math.min(
-                                    1,
-                                    (double) (timeAlive - fadeStart)
-                                            / (double) (fadeStop - fadeStart));
+            float percent = getPercent(line, ticks);
             applied =
                     1
                             - (float)
-                                    ((EasingMethod)
-                                                    HudConfigStorage.General.FADE_TYPE.config
-                                                            .getOptionListValue())
-                                            .apply(percent);
+                            ((EasingMethod)
+                                    HudConfigStorage.General.FADE_TYPE.config
+                                            .getOptionListValue())
+                                    .apply(percent);
             applied = Math.max(0, applied);
             if (applied <= 0) {
                 return;
@@ -642,7 +654,7 @@ public class ChatWindow {
 
         if (!focused
                 && HudConfigStorage.General.HUD_LINE_TYPE.config.getOptionListValue()
-                        == HudConfigStorage.HudLineType.COMPACT) {
+                == HudConfigStorage.HudLineType.COMPACT) {
             backgroundWidth = lineWidth + headOffset();
         } else {
             backgroundWidth = scaledWidth;
@@ -674,22 +686,33 @@ public class ChatWindow {
             }
             int headY = getActualY(y);
             context.drawTexture(
+                    identifier -> RenderLayer.getGuiTextured(line.getParent().getOwner().getTexture()),
                     line.getParent().getOwner().getTexture(), headX, headY, 8, 8, 8, 8, 8, 8, 64, 64);
-            context.drawTexture(
-                    line.getParent().getOwner().getTexture(), headX, headY, 8, 8, 40, 8, 8, 8, 64, 64);
             RenderSystem.setShaderColor(1, 1, 1, 1);
         }
         context.drawTextWithShadow(
                 client.textRenderer, render.asOrderedText(), renderRight ? pRX - lineWidth : pLX, getActualY(y) + 1, text.color());
     }
 
+    private static float getPercent(ChatMessage.AdvancedChatLine line, int ticks) {
+        int fadeStart = HudConfigStorage.General.FADE_START.config.getIntegerValue();
+        int fadeStop = fadeStart + HudConfigStorage.General.FADE_TIME.config.getIntegerValue();
+        int timeAlive = ticks - line.getParent().getCreationTick();
+        float percent =
+                (float)
+                        Math.min(
+                                1,
+                                (double) (timeAlive - fadeStart)
+                                        / (double) (fadeStop - fadeStart));
+        return percent;
+    }
+
     public Style getText(double mouseX, double mouseY) {
         if (!WindowManager.getInstance().isChatFocused()) {
             return null;
         }
-        double relX = mouseX;
         double relY = getConvertedY() - mouseY;
-        double trueX = relX / getScale() - getPaddedLeftX();
+        double trueX = mouseX / getScale() - getPaddedLeftX();
         double trueY = relY / getScale();
         // Divide it by chat scale to get where it actually is
         if (trueX < 0.0D || trueY < 0.0D) {
@@ -722,9 +745,9 @@ public class ChatWindow {
 
                 if (trueY <= y.getValue()
                         && trueY
-                                >= y.getValue()
-                                        - HudConfigStorage.General.LINE_SPACE.config
-                                                .getIntegerValue()) {
+                        >= y.getValue()
+                        - HudConfigStorage.General.LINE_SPACE.config
+                        .getIntegerValue()) {
                     ChatMessage.AdvancedChatLine line = message.getLines().get(i);
                     double truestX = trueX;
                     if (renderRight) {
@@ -741,11 +764,11 @@ public class ChatWindow {
                     break;
                 }
                 if (!y.isPossible(
-                                HudConfigStorage.General.LINE_SPACE.config.getIntegerValue()
-                                        + HudConfigStorage.General.MESSAGE_SPACE.config
-                                                .getIntegerValue())
+                        HudConfigStorage.General.LINE_SPACE.config.getIntegerValue()
+                                + HudConfigStorage.General.MESSAGE_SPACE.config
+                                .getIntegerValue())
                         || !y.incrementIfPossible(
-                                HudConfigStorage.General.MESSAGE_SPACE.config.getIntegerValue())) {
+                        HudConfigStorage.General.MESSAGE_SPACE.config.getIntegerValue())) {
                     break;
                 }
             }
@@ -758,12 +781,11 @@ public class ChatWindow {
         if (!WindowManager.getInstance().isChatFocused()) {
             return null;
         }
-        double relX = mouseX;
         double relY = getConvertedY() - mouseY;
         if (renderTopFirst) {
             relY = getConvertedHeight() - relY;
         }
-        double trueX = relX / getScale() - getPaddedLeftX();
+        double trueX = mouseX / getScale() - getPaddedLeftX();
         double trueY = relY / getScale();
         // Divide it by chat scale to get where it actually is
         if (trueX < 0.0D || trueY < 0.0D) {
@@ -890,7 +912,7 @@ public class ChatWindow {
             }
         }
         if (toRemove != null) {
-            // Remove and then readd it with the updated stack information
+            // Remove and then read it with the updated stack information
             lines.remove(toRemove);
             addMessage(message, true, true);
         }
@@ -928,7 +950,7 @@ public class ChatWindow {
             UUID uuid = UUID.fromString(uuidEl);
             AbstractChatTab tab = AdvancedChatHud.MAIN_CHAT_TAB.fromUUID(uuid);
             if (tab == null) {
-                AdvancedChatHud.LOGGER.warn("Tab with UUID " + uuidEl + " could not be found!");
+                AdvancedChatHud.LOGGER.warn("Tab with UUID {} could not be found!", uuidEl);
                 return null;
             }
             ChatWindow window = new ChatWindow(tab);

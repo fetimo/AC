@@ -188,10 +188,7 @@ public class ChatTab {
                     t.setUuid(UUID.fromString(obj.get("uuid").getAsString()));
                 } catch (Exception e) {
                     // Failed, but a new one will happen
-                    AdvancedChatHud.LOGGER.warn(
-                            "Tab "
-                                    + t.getName().config.getStringValue()
-                                    + " did not have a UUID. New one will be generated.");
+                    AdvancedChatHud.LOGGER.warn("Tab {} did not have a UUID. New one will be generated.", t.getName().config.getStringValue());
                 }
             }
             return t;
@@ -205,7 +202,7 @@ public class ChatTab {
                 obj.add(option.key, option.config.getAsJsonElement());
             }
             JsonArray find = new JsonArray();
-            if (tab.getMatches().size() == 0) {
+            if (tab.getMatches().isEmpty()) {
                 tab.getMatches().add(new Match("I will match to text!", FindType.LITERAL));
             }
             for (Match m : tab.getMatches()) {

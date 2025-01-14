@@ -13,7 +13,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatInputSuggestor;
-import net.minecraft.client.util.math.MatrixStack;
 
 /** Handles the CommandSuggestor for the chat */
 @Environment(EnvType.CLIENT)

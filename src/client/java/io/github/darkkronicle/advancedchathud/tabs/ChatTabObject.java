@@ -18,12 +18,12 @@ import io.github.darkkronicle.Konstruct.type.IntegerObject;
 import io.github.darkkronicle.Konstruct.type.KonstructObject;
 import io.github.darkkronicle.Konstruct.type.NullObject;
 import io.github.darkkronicle.advancedchatcore.util.Color;
-import io.github.darkkronicle.advancedchathud.config.ChatTab;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.Optional;
 
+@Getter
 public class ChatTabObject extends KonstructObject<ChatTabObject> {
 
     private static abstract class ColorFunction implements ObjectFunction<ChatTabObject> {
@@ -152,7 +152,6 @@ public class ChatTabObject extends KonstructObject<ChatTabObject> {
 
     );
 
-    @Getter
     private final CustomChatTab tab;
 
     public ChatTabObject(CustomChatTab tab) {

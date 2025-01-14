@@ -128,7 +128,7 @@ public class ChatMessage {
             LocalTime time,
             Color backgroundColor,
             int width,
-            MessageOwner owner,
+            @Nullable MessageOwner owner,
             @Nullable MessageSignatureData signature,
             @Nullable MessageIndicator indicator) {
         this.creationTick = creationTick;

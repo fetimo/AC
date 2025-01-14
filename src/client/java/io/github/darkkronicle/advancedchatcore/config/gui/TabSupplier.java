@@ -21,7 +21,7 @@ public class TabSupplier {
     private TabSupplier nestedSelection = null;
 
     @Getter
-    private List<TabSupplier> children = new ArrayList<>();
+    private final List<TabSupplier> children = new ArrayList<>();
 
     public TabSupplier(String name, String translationKey) {
         this.name = name;

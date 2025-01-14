@@ -172,7 +172,7 @@ public class ChatSuggestor {
             }
         }
 
-        if (newSuggestions.size() <= 0) {
+        if (newSuggestions.isEmpty()) {
             return AdvancedSuggestions.empty();
         }
 

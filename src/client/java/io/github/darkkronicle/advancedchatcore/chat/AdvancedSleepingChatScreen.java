@@ -46,6 +46,7 @@ public class AdvancedSleepingChatScreen extends AdvancedChatScreen {
             }
 
             this.chatField.setText("");
+            assert this.client != null;
             this.client.inGameHud.getChatHud().resetScroll();
             // Prevents really weird interactions with chat history
             resetCurrentMessage();
@@ -56,6 +57,8 @@ public class AdvancedSleepingChatScreen extends AdvancedChatScreen {
     }
 
     private void stopSleeping() {
+        assert this.client != null;
+        assert this.client.player != null;
         ClientPlayNetworkHandler clientPlayNetworkHandler = this.client.player.networkHandler;
         clientPlayNetworkHandler.sendPacket(
                 new ClientCommandC2SPacket(

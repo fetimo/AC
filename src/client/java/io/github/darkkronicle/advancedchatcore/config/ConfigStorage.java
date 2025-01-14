@@ -40,6 +40,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.NotNull;
 
 // Used to store values into config.json
 @Environment(EnvType.CLIENT)
@@ -258,6 +259,24 @@ public class ConfigStorage implements IConfigHandler {
     }
 
     public static void loadFromFile() {
+        File configFile = getConfigFile();
+
+        if (configFile.exists() && configFile.isFile() && configFile.canRead()) {
+            JsonElement element = parseJsonFile(configFile);
+
+            if (element != null && element.isJsonObject()) {
+                JsonObject root = element.getAsJsonObject();
+
+                readOptions(root, General.NAME, General.OPTIONS);
+                readOptions(root, ChatScreen.NAME, ChatScreen.OPTIONS);
+                readOptions(root, Hotkeys.NAME, Hotkeys.OPTIONS);
+
+                int version = JsonUtils.getIntegerOrDefault(root, "configVersion", 0);
+            }
+        }
+    }
+
+    private static @NotNull File getConfigFile() {
         File v3 = FileUtils.getConfigDirectory().toPath().resolve(CONFIG_FILE_NAME).toFile();
         File configFile;
         if (v3.exists()
@@ -276,20 +295,7 @@ public class ConfigStorage implements IConfigHandler {
                             .resolve(CONFIG_FILE_NAME)
                             .toFile();
         }
-
-        if (configFile.exists() && configFile.isFile() && configFile.canRead()) {
-            JsonElement element = parseJsonFile(configFile);
-
-            if (element != null && element.isJsonObject()) {
-                JsonObject root = element.getAsJsonObject();
-
-                readOptions(root, General.NAME, General.OPTIONS);
-                readOptions(root, ChatScreen.NAME, ChatScreen.OPTIONS);
-                readOptions(root, Hotkeys.NAME, Hotkeys.OPTIONS);
-
-                int version = JsonUtils.getIntegerOrDefault(root, "configVersion", 0);
-            }
-        }
+        return configFile;
     }
 
     /**
@@ -375,7 +381,7 @@ public class ConfigStorage implements IConfigHandler {
                         element = parser.parse(reader);
                     } catch (Exception e) {
                         reader.close();
-                        MaLiLib.logger.error(
+                        MaLiLib.debugLog(
                                 "Failed to parse the JSON file '{}'. Attempting different charset."
                                         + " ",
                                 fileName,
@@ -387,7 +393,7 @@ public class ConfigStorage implements IConfigHandler {
                     return element;
                 }
             } catch (Exception e) {
-                MaLiLib.logger.error("Failed to parse the JSON file '{}'", fileName, e);
+                MaLiLib.debugLog("Failed to parse the JSON file '{}'", fileName, e);
             }
         }
 
@@ -395,7 +401,7 @@ public class ConfigStorage implements IConfigHandler {
     }
 
     // WINDOWS BAD AND MINECRAFT LIKES UTF-16
-    public static boolean writeJsonToFile(JsonObject root, File file) {
+    public static void writeJsonToFile(JsonObject root, File file) {
         OutputStreamWriter writer = null;
 
         try {
@@ -403,9 +409,8 @@ public class ConfigStorage implements IConfigHandler {
             writer.write(JsonUtils.GSON.toJson(root));
             writer.close();
 
-            return true;
         } catch (IOException e) {
-            MaLiLib.logger.warn(
+            MaLiLib.debugLog( 
                     "Failed to write JSON data to file '{}'", file.getAbsolutePath(), e);
         } finally {
             try {
@@ -413,11 +418,10 @@ public class ConfigStorage implements IConfigHandler {
                     writer.close();
                 }
             } catch (Exception e) {
-                MaLiLib.logger.warn("Failed to close JSON file", e);
+                MaLiLib.debugLog( "Failed to close JSON file", e);
             }
         }
 
-        return false;
     }
 
     public static void writeOptions(
@@ -425,6 +429,7 @@ public class ConfigStorage implements IConfigHandler {
         JsonObject obj = JsonUtils.getNestedObject(root, category, true);
 
         for (SaveableConfig<?> option : options) {
+            assert obj != null;
             obj.add(option.key, option.config.getAsJsonElement());
         }
     }

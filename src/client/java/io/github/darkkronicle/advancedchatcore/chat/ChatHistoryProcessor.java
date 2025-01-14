@@ -28,13 +28,11 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public class ChatHistoryProcessor implements IMessageProcessor {
 
-    private static boolean sendToHud(Text text, @Nullable MessageSignatureData signature, MessageIndicator indicator) {
+    private static void sendToHud(Text text, @Nullable MessageSignatureData signature, MessageIndicator indicator) {
         if (AdvancedChatCore.FORWARD_TO_HUD) {
             ((MixinChatHudInvoker) MinecraftClient.getInstance().inGameHud.getChatHud()).invokeAddMessage(
                     text, signature, indicator);
-            return true;
         }
-        return false;
     }
 
     @Override

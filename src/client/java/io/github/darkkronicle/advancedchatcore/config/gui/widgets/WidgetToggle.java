@@ -10,9 +10,10 @@ package io.github.darkkronicle.advancedchatcore.config.gui.widgets;
 import fi.dy.masa.malilib.gui.button.ButtonOnOff;
 import lombok.Getter;
 
+@Getter
 public class WidgetToggle extends ButtonOnOff {
 
-    @Getter private boolean currentlyOn;
+    private boolean currentlyOn;
 
     public WidgetToggle(
             int x,

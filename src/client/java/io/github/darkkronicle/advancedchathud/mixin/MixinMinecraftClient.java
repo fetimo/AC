@@ -7,7 +7,6 @@
  */
 package io.github.darkkronicle.advancedchathud.mixin;
 
-import io.github.darkkronicle.advancedchathud.AdvancedChatHud;
 import io.github.darkkronicle.advancedchathud.ResolutionEventHandler;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,5 +23,4 @@ public class MixinMinecraftClient {
             handler.onResolutionChange();
         }
     }
-
 }

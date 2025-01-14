@@ -74,6 +74,7 @@ public class NarratorProcessor implements IMatchProcessor, IScreenSupplier, IJso
 
     @Override
     public Result processMatches(Text text, Text unfiltered, SearchResult search) {
+        assert search != null;
         String content = search.getGroupReplacements(message.config.getStringValue(), 0);
         Narrator.getNarrator().say(content, false);
         return Result.getFromBool(true);

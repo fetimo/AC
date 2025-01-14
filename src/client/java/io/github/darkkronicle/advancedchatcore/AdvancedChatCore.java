@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Random;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -69,7 +70,7 @@ public class AdvancedChatCore implements ClientModInitializer {
                     // Allow for delayed tasks to be added
                     SyncTaskQueue.getInstance().update(s.inGameHud.getTicks());
                     // Make sure we're not in the sleeping screen while awake
-                    if (client.currentScreen instanceof AdvancedSleepingChatScreen
+                    if (client.player != null && client.currentScreen instanceof AdvancedSleepingChatScreen
                             && !client.player.isSleeping()) {
                         GuiBase.openGui(null);
                     }
@@ -85,7 +86,7 @@ public class AdvancedChatCore implements ClientModInitializer {
      * @throws IOException Can't be opened
      */
     public static InputStream getResource(String path) throws URISyntaxException, IOException {
-        URI uri = Thread.currentThread().getContextClassLoader().getResource(path).toURI();
+        URI uri = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource(path)).toURI();
         if (!uri.getScheme().equals("file")) {
             // it's not a file
             return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);

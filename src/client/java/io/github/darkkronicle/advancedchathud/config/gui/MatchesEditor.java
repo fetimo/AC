@@ -22,6 +22,8 @@ import io.github.darkkronicle.advancedchathud.config.ChatTab;
 import io.github.darkkronicle.advancedchathud.config.Match;
 import net.minecraft.client.gui.screen.Screen;
 
+import java.util.Objects;
+
 public class MatchesEditor extends CoreGuiListBase<Match, WidgetMatchEntry, WidgetListMatches>
         implements IClosable {
 
@@ -52,7 +54,7 @@ public class MatchesEditor extends CoreGuiListBase<Match, WidgetMatchEntry, Widg
 
     @Override
     protected void closeGui(boolean showParent) {
-        getListWidget().save();
+        Objects.requireNonNull(getListWidget()).save();
         AdvancedChatHud.MAIN_CHAT_TAB.setUpTabs();
         super.closeGui(showParent);
     }
@@ -65,7 +67,7 @@ public class MatchesEditor extends CoreGuiListBase<Match, WidgetMatchEntry, Widg
 
     public void addMatch() {
         tab.getMatches().add(new Match("I will match to text!", FindType.LITERAL));
-        getListWidget().refreshEntries();
+        Objects.requireNonNull(getListWidget()).refreshEntries();
     }
 
     @Override
