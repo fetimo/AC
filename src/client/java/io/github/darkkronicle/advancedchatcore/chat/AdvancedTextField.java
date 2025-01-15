@@ -151,8 +151,8 @@ public class AdvancedTextField extends TextFieldWidget {
         int color = 0xFFFFFF;
         int cursor = getCursor();
         int cursorRow = renderLines.size() - 1;
-//        boolean renderCursor = this.isFocused() && focusedTicks / 6 % 2 == 0;
-        boolean renderCursor = true;
+        boolean renderCursor = this.isFocused() && focusedTicks / 6 % 2 == 0;
+//        boolean renderCursor = true;
         int renderY = getY() - (renderLines.size() - 1) * (textRenderer.fontHeight + 2);
         int endX = 0;
         int charCount = 0;

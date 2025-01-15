@@ -20,6 +20,7 @@ import io.github.darkkronicle.advancedchathud.HudChatMessage;
 import io.github.darkkronicle.advancedchathud.HudChatMessageHolder;
 import io.github.darkkronicle.advancedchathud.config.HudConfigStorage;
 import io.github.darkkronicle.advancedchathud.tabs.AbstractChatTab;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -256,7 +257,6 @@ public class ChatWindow {
     }
 
     private int headOffset() {
-//        Bug is not affected by this
         return HudConfigStorage.General.CHAT_HEADS.config.getBooleanValue() ? 10 : 0;
     }
 
@@ -492,50 +492,45 @@ public class ChatWindow {
                     tab.getBorderColor().color());
 
             // Close
-            RenderUtils.color(1, 1, 1, 1);
-            RenderUtils.bindTexture(X_ICON);
             context.drawTexture(
                     RenderLayer::getGuiTextured,
                     X_ICON,
                     rightX - scaledBar + 1,
                     getActualY(newY - 1),
+                    0,
+                    0,
                     scaledBar - 2,
                     scaledBar - 2,
-                    8,
-                    8,
                     32,
                     32,
                     32,
                     32);
 
             // Resize
-            RenderUtils.color(1, 1, 1, 1);
-            RenderUtils.bindTexture(RESIZE_ICON);
             context.drawTexture(
                     RenderLayer::getGuiTextured,
                     RESIZE_ICON,
                     rightX - scaledBar * 2 + 2,
                     getActualY(newY - 1),
+                    0,
+                    0,
                     scaledBar - 2,
                     scaledBar - 2,
-                    16,
-                    16,
                     32,
                     32,
                     32,
                     32);
 
             // Visibility
-            RenderUtils.bindTexture(visibility.getTexture());
             context.drawTexture(
                     RenderLayer::getGuiTextured,
                     visibility.getTexture(),
                     rightX - scaledBar * 3 + 3,
                     getActualY(newY - 1),
+                    0,
+                    0,
                     scaledBar - 2,
                     scaledBar - 2,
-                    16,
-                    16,
                     32,
                     32,
                     32,
@@ -618,13 +613,10 @@ public class ChatWindow {
         if (!focused) {
             // Find fade percentage
             float percent = getPercent(line, ticks);
-            applied =
-                    1
-                            - (float)
-                            ((EasingMethod)
-                                    HudConfigStorage.General.FADE_TYPE.config
-                                            .getOptionListValue())
-                                    .apply(percent);
+            applied = 1 - (float) ((EasingMethod)
+                    HudConfigStorage.General.FADE_TYPE.config
+                            .getOptionListValue())
+                    .apply(percent);
             applied = Math.max(0, applied);
             if (applied <= 0) {
                 return;
@@ -698,13 +690,11 @@ public class ChatWindow {
         int fadeStart = HudConfigStorage.General.FADE_START.config.getIntegerValue();
         int fadeStop = fadeStart + HudConfigStorage.General.FADE_TIME.config.getIntegerValue();
         int timeAlive = ticks - line.getParent().getCreationTick();
-        float percent =
-                (float)
-                        Math.min(
-                                1,
-                                (double) (timeAlive - fadeStart)
-                                        / (double) (fadeStop - fadeStart));
-        return percent;
+        return (float)
+                Math.min(
+                        1,
+                        (double) (timeAlive - fadeStart)
+                                / (double) (fadeStop - fadeStart));
     }
 
     public Style getText(double mouseX, double mouseY) {

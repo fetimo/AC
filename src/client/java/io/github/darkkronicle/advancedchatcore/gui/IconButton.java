@@ -65,8 +65,8 @@ public class IconButton extends CleanButton {
         RenderUtils.bindTexture(icon);
         context.drawTexture(
                 RenderLayer::getGuiTextured,
-                icon, x + padding, y + padding, width - (padding * 2), height - (padding * 2),
-                0, 0, iconWidth, iconHeight, iconWidth, iconHeight);
+                icon, x + padding, y + padding, 0, 0, width - (padding * 2), height - (padding * 2),
+                iconWidth, iconHeight, iconWidth, iconHeight);
 
         if (hovered && onHover != null) {
             context.drawCenteredTextWithShadow(
